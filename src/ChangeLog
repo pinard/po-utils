@@ -1,3 +1,24 @@
+2000-01-24  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Split portability matters in two.  A minimum for
+	customization to work, and the rest after the customization page.
+	Reported by Martin v. Löwis.
+
+2000-01-18  François Pinard  <pinard@iro.umontreal.ca>
+
+	* scanner.l (STATE_PO_COMMENT, STATE_PO_FLAGS, STATE_PO_REFERENCES):
+	New states, to transmit references from read PO files, as given.
+	(new_reference): New function.
+	(prepare_for_return): Use it.
+	* xpot.h: Include xalloc.h.
+
+	* xpot.c (generate_po_file): Refill references.
+	Spare repeating the file name in references when it does not change.
+	* po-mode.el (po-ensure-source-references): Correctly imply the
+	file name from the last which has been explicitly given.
+
+	* xpot.c (main): Follow GNU standards when printing version.
+
 2000-01-17  François Pinard  <pinard@iro.umontreal.ca>
 
 	* Makefile.am: Take care of installing po-mode.el.
@@ -38,7 +59,7 @@
 	<<EOF>>: Do not set starter_sent.  Otherwise, a STRING token, not
 	introduced by a starter token, was causing a parse error.
 	Reported by Bernhard Herzog.
-
+
 2000-01-11  François Pinard  <pinard@iro.umontreal.ca>
 
 	* parser.y, scanner.l, xpot.c, xpot.h: Implement Python.
@@ -120,7 +141,7 @@
 	* po-mode.el (po-validate): Manage so validation is done in a
 	buffer named *PO validation* instead of *compilation*.
 	Reported by Kalle Niemitalo.
-
+
 1998-09-07  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Merge make-local-variable within set whenever possible.

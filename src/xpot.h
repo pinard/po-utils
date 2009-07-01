@@ -15,11 +15,10 @@ typedef enum {false = 0, true = 1} bool;
 #endif
 #include <error.h>
 
+#include "xalloc.h"
 #include "obstack.h"
 #define obstack_chunk_alloc xmalloc
 #define obstack_chunk_free free
-void *xmalloc (int);
-
 #include "hash.h"
 
 #define _(String) String

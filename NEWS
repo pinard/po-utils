@@ -1,6 +1,12 @@
 Free xpot NEWS - User visible changes.		-*- outline -*- (allout)
 Copyright © 2000 Progiciels Bourbeau-Pinard inc.
 
+* Version 0.5 - François Pinard, 2000-01.
+
+.* Source references collected from read PO files.
+.* Source references refilled on generated PO files.
+.* `xpot' generates references more compactly, PO mode adjusted.
+
 * Version 0.4 - François Pinard, 2000-01.
 
 .* Package renamed from `xpot' to `po-utils'.

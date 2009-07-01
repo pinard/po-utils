@@ -39,6 +39,38 @@
 ;;;
 ;;; You may also adjust some variables, below, by defining them in your
 ;;; `.emacs' file, either directly or through command `M-x customize'.
+
+;;; Emacs portability matters - part I.
+;;; Here is the minimum for customization to work.  See part II.
+
+;; Identify which Emacs variety is being used.
+(eval-and-compile
+  (cond ((string-match "Lucid\\|XEmacs" emacs-version)
+	 (setq po-EMACS20 nil po-XEMACS t))
+	((and (string-lessp "19" emacs-version) (featurep 'faces))
+	 (setq po-EMACS20 t po-XEMACS nil))
+	(t (setq po-EMACS20 nil po-XEMACS nil))))
+
+;; Experiment with Emacs LISP message internationalisation.
+(eval-and-compile
+  (or (fboundp 'set-translation-domain)
+      (defsubst set-translation-domain (string) nil))
+  (or (fboundp 'translate-string)
+      (defsubst translate-string (string) string)))
+(defsubst _ (string) (translate-string string))
+(defsubst N_ (string) string)
+
+;; Handle missing `customs' package.
+(eval-and-compile
+  (condition-case ()
+      (require 'custom)
+    (error nil))
+  (if (and (featurep 'custom) (fboundp 'custom-declare-variable))
+      nil
+    (defmacro defgroup (&rest args)
+      nil)
+    (defmacro defcustom (var value doc &rest args)
+      (` (defvar (, var) (, value) (, doc))))))
 
 ;;; Customisation.
 
@@ -154,39 +186,10 @@ or remove the -m if you are not using the GNU version of `uuencode'."
   :type 'string
   :group 'po)
 
-;;; Emacs portability matters.
+;;; Emacs portability matters - part II.
 
-;;; Most portability matters are addressed in this page.  All other cases
+;;; Many portability matters are addressed in this page.  All other cases
 ;;; involve one of `eval-and-compile' or `fboundp', just search for these.
-
-;; Identify which Emacs variety is being used.
-(eval-and-compile
-  (cond ((string-match "Lucid\\|XEmacs" emacs-version)
-	 (setq po-EMACS20 nil po-XEMACS t))
-	((and (string-lessp "19" emacs-version) (featurep 'faces))
-	 (setq po-EMACS20 t po-XEMACS nil))
-	(t (setq po-EMACS20 nil po-XEMACS nil))))
-
-;; Experiment with Emacs LISP message internationalisation.
-(eval-and-compile
-  (or (fboundp 'set-translation-domain)
-      (defsubst set-translation-domain (string) nil))
-  (or (fboundp 'translate-string)
-      (defsubst translate-string (string) string)))
-(defsubst _ (string) (translate-string string))
-(defsubst N_ (string) string)
-
-;; Handle missing `customs' package.
-(eval-and-compile
-  (condition-case ()
-      (require 'custom)
-    (error nil))
-  (if (and (featurep 'custom) (fboundp 'custom-declare-variable))
-      nil
-    (defmacro defgroup (&rest args)
-      nil)
-    (defmacro defcustom (var value doc &rest args)
-      (` (defvar (, var) (, value) (, doc))))))
 
 ;; Protect string comparisons from text properties if possible.
 (eval-and-compile
@@ -2044,25 +2047,28 @@ the file without moving its cursor."
   "Extract all references into a list, with paths resolved, if necessary."
   (po-find-span-of-entry)
   (if (= po-start-of-entry po-reference-check)
-      ()
+      nil
     (setq po-reference-alist nil)
     (save-excursion
       (goto-char po-start-of-entry)
       (if (re-search-forward "^#:" po-start-of-msgid t)
-	  (while (looking-at "\\(\n#:\\)? *\\([^: ]+\\):\\([0-9]+\\)")
-	    (goto-char (match-end 0))
-	    (let* ((name (po-match-string 2))
-		   (line (po-match-string 3))
-		   (path po-search-path)
-		   file)
-	      (while (and (progn (setq file (concat (car (car path)) name))
-				 (not (file-exists-p file)))
-			  path)
-		(setq path (cdr path)))
-	      (if path
+	  (let (current name line path file)
+	    (while (looking-at "\\(\n#:\\)? *\\([^: ]*\\):\\([0-9]+\\)")
+	      (goto-char (match-end 0))
+	      (setq name (po-match-string 2)
+		    line (po-match-string 3)
+		    path po-search-path)
+	      (if (string-equal name "")
+		  nil
+		(while (and (not (file-exists-p
+				  (setq file (concat (car (car path)) name))))
+			    path)
+		  (setq path (cdr path)))
+		(setq current (and path file)))
+	      (if current
 		  (setq po-reference-alist
-			(cons (list (concat file ":" line)
-				    file
+			(cons (list (concat current ":" line)
+				    current
 				    (string-to-int line))
 			      po-reference-alist)))))))
     (setq po-reference-alist (nreverse po-reference-alist)

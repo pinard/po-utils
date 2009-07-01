@@ -32,6 +32,10 @@ static enum language current_language;
 static const char *string_file_name;
 static unsigned  string_line_number;
 
+/* Saving reference lists while reading PO files.  */
+static const char *current_reference_file;
+static struct reference *current_reference_list = NULL;
+
 static bool starter_sent;	/* if starter token has already been sent */
 static bool comment_seen;	/* comment accumulation started */
 static bool string_seen;	/* a string is being seen, maybe accumulated */
@@ -53,6 +57,7 @@ static int prepare_for_return (int, int, int);
 
 /* Comments and strings.  */
 static void grow_comment (char *, size_t, char);
+static struct reference *new_reference (const char *, unsigned);
 static void begin_string (bool, int);
 static void grow_string (char *, size_t);
 static void grow_string_with_character (char);
@@ -67,10 +72,13 @@ static void unexpected_character (const char *);
 %option noyywrap
 
 %x STATE_AWK
-%x STATE_C STATE_C_PREPROCESSOR STATE_C_COMMENT STATE_C_STRING
-%x STATE_ELISP STATE_ELISP_CHARACTER STATE_ELISP_STRING
+%x STATE_C
+%x   STATE_C_PREPROCESSOR STATE_C_COMMENT STATE_C_STRING
+%x STATE_ELISP
+%x   STATE_ELISP_CHARACTER STATE_ELISP_STRING
 %x STATE_PERL
-%x STATE_PO STATE_PO_STRING
+%x STATE_PO
+%x   STATE_PO_FLAGS STATE_PO_COMMENT STATE_PO_REFERENCES STATE_PO_STRING
 %x STATE_SHELL
 %x STATE_PYTHON
 %x   STATE_PYTHON_SINGLE_STRING STATE_PYTHON_SINGLE_STRING_RAW
@@ -120,7 +128,7 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
     try_setting_language (cursor, limit - cursor);
   }
 
-  .*\n\n			{
+  .*\n			{
     current_line_number++;
     if (current_line_number > 2)
       {
@@ -348,18 +356,58 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 
 <STATE_PO>{			/* Portable Object (PO) file */
 
-  /* FIXME: Remains to copy references and other types of comments.  */
-
   {white}+
   \n{white}+		current_line_number++;
-  \#{white}*
-  \#\..*		grow_comment (yytext + 2, yyleng - 2, '\0');
+  ^\#\..*		grow_comment (yytext + 2, yyleng - 2, '\0');
+  ^\#,			BEGIN STATE_PO_FLAGS;
+  ^\#:			{
+    current_reference_file = NULL;
+    BEGIN STATE_PO_REFERENCES;
+  }
+  ^\#			BEGIN STATE_PO_COMMENT;
   ^msgid{white}+	PO_RETURN (PO_MSGID, YY_START);
   ^msgstr{white}+	PO_RETURN (PO_MSGSTR, YY_START);
   \"			begin_string (false, BEGIN STATE_PO_STRING);
 }
 
-<STATE_PO_STRING>{
+<STATE_PO_COMMENT>{		/* PO file - translator comment */
+  .*\n			{
+    current_line_number++;
+    BEGIN STATE_PO;
+  }
+}
+
+<STATE_PO_FLAGS>{		/* PO file - entry flags */
+  .*\n			{	/* FIXME: Ignored, should do better...  */
+    current_line_number++;
+    BEGIN STATE_PO;
+  }
+}
+
+<STATE_PO_REFERENCES>{		/* PO file - list of references */
+  \n			{
+    current_line_number++;
+    BEGIN STATE_PO;
+  }
+  {white}+
+  [^:]+			current_reference_file = xstrdup (yytext);
+  :[0-9]+		{
+    if (current_reference_file)
+      {
+	unsigned value = 0;
+	const char *cursor;
+	struct reference *reference;
+
+	for (cursor = yytext + 1; *cursor; cursor++)
+	  value = 10 * value + *cursor - '0';
+	reference = new_reference (current_reference_file, value);
+	reference->next = current_reference_list;
+	current_reference_list = reference;
+      }
+  }
+}
+
+<STATE_PO_STRING>{		/* PO file - message string */
 
   \"			BEGIN STATE_PO;
   \\[0-7]{1,3}		grow_string_with_octal (yytext + 1);
@@ -692,23 +740,9 @@ prepare_for_return (int token, int start, int starter)
 	prepare_for_rescan ();
       if (translatable_flag)
 	{
-	  struct reference *reference = (struct reference *)
-	    xmalloc (sizeof (struct reference));
 	  struct po_entry lookup;
 	  struct po_entry *entry;
 	  char *string;
-
-	  /* Construct a reference for such a string.  */
-	  reference->file_name = string_file_name;
-	  reference->line_number = string_line_number;
-	  if (comment_seen)
-	    {
-	      obstack_1grow (&comment_stack, '\0');
-	      reference->comment = obstack_finish (&comment_stack);
-	      comment_seen = false;
-	    }
-	  else
-	    reference->comment = NULL;
 
 	  /* Check if this string has already been seen.  */
 	  obstack_1grow (&string_stack, '\0');
@@ -716,23 +750,38 @@ prepare_for_return (int token, int start, int starter)
 	  lookup.msgid = string;
 	  entry = hash_lookup (po_entry_table, &lookup);
 	  if (entry)
-	    {
-	      /* Discard a duplicate string, merely keep its reference.  */
-	      obstack_free (&string_stack, string);
-	      reference->next = entry->reference_list;
-	      entry->reference_list = reference;
-	    }
+	    /* Discard a duplicate string.  */
+	    obstack_free (&string_stack, string);
 	  else
 	    {
 	      /* This is a new string, so generate a new PO file entry.  */
-	      reference->next = NULL;
 	      entry = (struct po_entry *) xmalloc (sizeof (struct po_entry));
 	      entry->msgid = string;
 	      entry->next = po_entry_list;
 	      po_entry_list = entry;
-	      entry->reference_list = reference;
+	      entry->reference_list = NULL;
 	      if (!hash_insert (po_entry_table, entry))
 		error (EXIT_FAILURE, 0, _("Memory exhausted."));
+	    }
+	  if (current_reference_list)
+	    {
+	      struct reference *reference = current_reference_list;
+
+	      /* Prepend the already accumulated list of references.  */
+	      while (reference->next)
+		reference = reference->next;
+	      reference->next = entry->reference_list;
+	      entry->reference_list = current_reference_list;
+	      current_reference_list = NULL;
+	    }
+	  else
+	    {
+	      struct reference *reference
+		= new_reference (string_file_name, string_line_number);
+
+	      /* Chain a single reference built for this circumstance.  */
+	      reference->next = entry->reference_list;
+	      entry->reference_list = reference;
 	    }
 	}
       return STRING;
@@ -746,8 +795,7 @@ prepare_for_return (int token, int start, int starter)
     }
 
   BEGIN start;
-  if (token != '(')
-    translatable_flag = false;
+  translatable_flag = false;
   return token;
 }
 
@@ -777,6 +825,32 @@ grow_comment (char *text, size_t length, char delimiter)
     }
   obstack_grow (&comment_stack, text, length);
   comment_seen = true;
+}
+
+/*------------------------------------------------------------------------.
+| Build a reference pointing to FILE_NAME and LINE_NUMBER.  The reference |
+| includes the comment currently being grown, if any.  The caller should  |
+| then include the returned reference in some linked chain.               |
+`------------------------------------------------------------------------*/
+
+static struct reference *
+new_reference (const char *file_name, unsigned line_number)
+{
+  struct reference *reference = (struct reference *)
+    xmalloc (sizeof (struct reference));
+
+  reference->file_name = file_name;
+  reference->line_number = line_number;
+  if (comment_seen)
+    {
+      obstack_1grow (&comment_stack, '\0');
+      reference->comment = obstack_finish (&comment_stack);
+      comment_seen = false;
+    }
+  else
+    reference->comment = NULL;
+
+  return reference;
 }
 
 /*-------------------------------------------------------------------------.

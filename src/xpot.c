@@ -225,6 +225,8 @@ process_file (FILE *file, const char *name)
 | Generate all accumulated PO entries on FILE.  |
 `----------------------------------------------*/
 
+#define COLUMN_LIMIT 79		/* ideal fill limit */
+
 void
 generate_po_file (FILE *file)
 {
@@ -277,6 +279,8 @@ msgstr \"\"\n\
       if (reference_list)
 	{
 	  struct reference *reference;
+	  const char *previous_file_name;
+	  size_t current_column;
 
 	  /* Reverse REFERENCE_LIST.  */
 	  {
@@ -321,13 +325,36 @@ msgstr \"\"\n\
 
 	  /* Output all references to a line.  */
 
+	  previous_file_name = NULL;
 	  fputs ("#:", file);
+	  current_column = 2;
 	  for (reference = reference_list;
 	       reference;
 	       reference = reference->next)
-	    fprintf (file, " %s:%d",
-		     reference->file_name, reference->line_number);
+	    {
+	      char buffer[12];
+	      size_t length;
 
+	      sprintf (buffer, "%d", reference->line_number);
+	      if (reference->file_name != previous_file_name)
+		length = strlen (reference->file_name) + 2 + strlen(buffer);
+	      else
+		length = 2 + strlen (buffer);
+	      if (current_column > 2 && current_column + length > COLUMN_LIMIT)
+		{
+		  fputs ("\n#:", file);
+		  current_column = 2;
+		}
+	      fputc (' ', file);
+	      if (reference->file_name != previous_file_name)
+		{
+		  fputs (reference->file_name, file);
+		  previous_file_name = reference->file_name;
+		}
+	      fputc (':', file);
+	      fputs (buffer, file);
+	      current_column += length;
+	    }
 	  putc ('\n', file);
 	}
 
@@ -520,7 +547,7 @@ main (int argc, char **argv)
 
   if (show_version)
     {
-      printf ("Free %s %s\n", PACKAGE, VERSION);
+      printf ("xpot (Free %s) %s\n", PACKAGE, VERSION);
       fputs (_("\
 \n\
 Copyright (C) 1996, 2000 Progiciels Bourbeau-Pinard inc.\n"),

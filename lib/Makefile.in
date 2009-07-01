@@ -69,11 +69,10 @@ YACC = @YACC@
 lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = gnits
-
 noinst_LIBRARIES = libxpot.a
-
 noinst_HEADERS = error.h getopt.h hash.h obstack.h xalloc.h
-libxpot_a_SOURCES = error.c getopt.c getopt1.c hash.c obstack.c xmalloc.c
+libxpot_a_SOURCES = error.c getopt.c getopt1.c hash.c obstack.c	xmalloc.c xstrdup.c
+
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
@@ -86,7 +85,7 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 libxpot_a_LIBADD = 
 libxpot_a_OBJECTS =  error.o getopt.o getopt1.o hash.o obstack.o \
-xmalloc.o
+xmalloc.o xstrdup.o
 AR = ar
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -94,7 +93,7 @@ CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(noinst_HEADERS)
 
-DIST_COMMON =  Makefile.am Makefile.in
+DIST_COMMON =  ChangeLog Makefile.am Makefile.in
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -198,6 +197,7 @@ getopt1.o: getopt1.c ../config.h getopt.h
 hash.o: hash.c ../config.h hash.h
 obstack.o: obstack.c obstack.h
 xmalloc.o: xmalloc.c ../config.h error.h xalloc.h
+xstrdup.o: xstrdup.c ../config.h
 
 info-am:
 info: info-am

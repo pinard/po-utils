@@ -1,0 +1,4 @@
+2000-01-18  François Pinard  <pinard@iro.umontreal.ca>
+
+	* xstrdup.c: New file, from elsewhere.
+	* Makefile.am (libxpot_a_SOURCES): Adjusted.

@@ -262,12 +262,12 @@ distdir: $(DISTFILES)
 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
 	  fi; \
 	done
-parser.o: parser.c xpot.h ../config.h ../lib/error.h ../lib/obstack.h \
-	../lib/hash.h
-scanner.o: scanner.c xpot.h ../config.h ../lib/error.h ../lib/obstack.h \
-	../lib/hash.h parser.h
-xpot.o: xpot.c xpot.h ../config.h ../lib/error.h ../lib/obstack.h \
-	../lib/hash.h ../lib/getopt.h
+parser.o: parser.c xpot.h ../config.h ../lib/error.h ../lib/xalloc.h \
+	../lib/obstack.h ../lib/hash.h
+scanner.o: scanner.c xpot.h ../config.h ../lib/error.h ../lib/xalloc.h \
+	../lib/obstack.h ../lib/hash.h parser.h
+xpot.o: xpot.c xpot.h ../config.h ../lib/error.h ../lib/xalloc.h \
+	../lib/obstack.h ../lib/hash.h ../lib/getopt.h
 
 info-am:
 info: info-am
