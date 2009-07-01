@@ -1,0 +1,11 @@
+2000-01-11  François Pinard  <pinard@iro.umontreal.ca>
+
+	* parser.y, scanner.l, xpot.c, xpot.h: Implement Python.
+	Rename -d to -p for --domain and -r to -v for --release.
+	Implement -d for --doc-strings.  Miscellaneous cleanup.
+	Also try guessing language from shell name or -*- marks.
+
+2000-01-04  François Pinard  <pinard@iro.umontreal.ca>
+
+	* ChangeLog: Initialised.
+

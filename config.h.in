@@ -1,0 +1,44 @@
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define if the malloc check has been performed. */
+#undef HAVE_DONE_WORKING_MALLOC_CHECK
+
+/* Define if the realloc check has been performed. */
+#undef HAVE_DONE_WORKING_REALLOC_CHECK
+
+/* Define if you don't have `vprintf' but do have `_doprnt.' */
+#undef HAVE_DOPRNT
+
+/* Define if you have the `fl' library (-lfl). */
+#undef HAVE_LIBFL
+
+/* Define if you have the `l' library (-ll). */
+#undef HAVE_LIBL
+
+/* Define if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define if you have the <values.h> header file. */
+#undef HAVE_VALUES_H
+
+/* Define if you have the `vprintf' function. */
+#undef HAVE_VPRINTF
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define if `lex' declares `yytext' as a `char *' by default, not a `char[]'.
+   */
+#undef YYTEXT_POINTER
+
+/* Define to rpl_malloc if the replacement function should be used. */
+#undef malloc
+
+/* Define to rpl_realloc if the replacement function should be used. */
+#undef realloc

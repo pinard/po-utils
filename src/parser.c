@@ -1,29 +1,33 @@
 
-/*  A Bison parser, made from parser.y
+/*  A Bison parser, made from ../../src/parser.y
  by  GNU Bison version 1.25
   */
 
 #define YYBISON 1  /* Identify Bison output.  */
 
-#define	AWK_IDENT	258
-#define	BASH_IDENT	259
-#define	C_IDENTIFIER	260
-#define	C_NUMBER	261
-#define	C_STRING	262
-#define	ELISP_SYMBOL	263
-#define	ELISP_OTHER_ATOM	264
-#define	PO_MSGID	265
-#define	PO_MSGSTR	266
-#define	PO_STRING	267
+#define	STRING	258
+#define	AWK_STARTER	259
+#define	C_STARTER	260
+#define	C_IDENTIFIER	261
+#define	C_NUMBER	262
+#define	ELISP_STARTER	263
+#define	ELISP_SYMBOL	264
+#define	ELISP_OTHER_ATOM	265
+#define	PO_STARTER	266
+#define	PO_MSGID	267
+#define	PO_MSGSTR	268
+#define	PERL_STARTER	269
+#define	PYTHON_STARTER	270
+#define	PYTHON_IDENTIFIER	271
+#define	PYTHON_DEFINE	272
+#define	PYTHON_OTHER	273
+#define	SHELL_STARTER	274
 
-#line 7 "parser.y"
+#line 18 "../../src/parser.y"
 
-#include <stdio.h>
 #include "xpot.h"
 
-static void save_po_string (void);
-
-#line 14 "parser.y"
+#line 22 "../../src/parser.y"
 typedef union
 {
   struct elisp_expr elisp_expr;
@@ -43,26 +47,26 @@ typedef union
 
 
 
-#define	YYFINAL		40
+#define	YYFINAL		85
 #define	YYFLAG		-32768
-#define	YYNTBASE	19
+#define	YYNTBASE	29
 
-#define YYTRANSLATE(x) ((unsigned)(x) <= 267 ? yytranslate[x] : 32)
+#define YYTRANSLATE(x) ((unsigned)(x) <= 274 ? yytranslate[x] : 55)
 
 static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,    15,    16,
-    18,     2,     2,     2,     2,    17,     2,     2,     2,     2,
+     2,     2,     2,     2,     2,     2,     2,     2,    22,    23,
+    25,     2,     2,     2,     2,    24,     2,     2,     2,     2,
+     2,     2,     2,     2,     2,     2,     2,    26,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-    13,     2,    14,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+    20,     2,    21,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+     2,     2,    27,     2,    28,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -76,107 +80,170 @@ static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     1,     2,     3,     4,     5,
-     6,     7,     8,     9,    10,    11,    12
+     6,     7,     8,     9,    10,    11,    12,    13,    14,    15,
+    16,    17,    18,    19
 };
 
 #if YYDEBUG != 0
 static const short yyprhs[] = {     0,
-     0,     1,     4,     5,     7,     9,    11,    13,    15,    17,
-    19,    21,    24,    25,    28,    31,    33,    35,    39,    42,
-    48,    52,    54,    56,    59,    62,    67,    69
+     0,     1,     4,     5,     8,    11,    14,    17,    20,    23,
+    26,    27,    28,    30,    33,    34,    37,    40,    42,    44,
+    48,    51,    57,    61,    62,    64,    67,    68,    74,    75,
+    79,    80,    82,    85,    89,    90,    95,    96,   102,   103,
+   105,   107,   110,   112,   115,   117,   119,   120,   124,   127,
+   131,   134,   138,   141,   145,   147,   149,   152,   156
 };
 
 static const short yyrhs[] = {    -1,
-    20,    21,     0,     0,    22,     0,    23,     0,    24,     0,
-    25,     0,    28,     0,     3,     0,     4,     0,     5,     0,
-    27,    26,     0,     0,    26,    27,     0,    26,     1,     0,
-     8,     0,     9,     0,    13,    26,    14,     0,    15,    27,
-     0,    16,    26,    17,    27,    18,     0,    16,    26,    18,
-     0,    29,     0,    30,     0,    29,    30,     0,    29,     1,
-     0,    10,    31,    11,    31,     0,    12,     0,    31,    12,
-     0
+    30,    31,     0,     0,     4,    32,     0,     5,    33,     0,
+     8,    34,     0,    14,    37,     0,    11,    38,     0,    15,
+    41,     0,    19,    54,     0,     0,     0,    36,     0,    34,
+    36,     0,     0,    35,    36,     0,    35,     1,     0,     9,
+     0,    10,     0,    20,    35,    21,     0,    22,    36,     0,
+    23,    35,    24,    36,    25,     0,    23,    35,    25,     0,
+     0,    39,     0,    38,    39,     0,     0,    12,    40,     3,
+    13,     3,     0,     0,    42,    47,    43,     0,     0,    48,
+     0,    43,    44,     0,    43,    44,    48,     0,     0,    17,
+    26,    45,    47,     0,     0,    17,    53,    26,    46,    47,
+     0,     0,     3,     0,    51,     0,    48,    50,     0,    50,
+     0,    49,    50,     0,     3,     0,    51,     0,     0,    16,
+    52,    53,     0,    23,    25,     0,    23,    49,    25,     0,
+    20,    21,     0,    20,    49,    21,     0,    27,    28,     0,
+    27,    49,    28,     0,    18,     0,    26,     0,    23,    25,
+     0,    23,    49,    25,     0,     0
 };
 
 #endif
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    25,    32,    34,    35,    36,    37,    38,    39,    44,    49,
-    54,    62,    68,    72,   100,   103,   112,   116,   120,   124,
-   128,   134,   137,   138,   139,   142,   145,   146
+    33,    40,    42,    43,    44,    45,    46,    47,    48,    49,
+    56,    63,    73,    74,    77,    81,   109,   112,   124,   128,
+   132,   136,   140,   150,   157,   158,   161,   165,   173,   177,
+   180,   181,   182,   183,   186,   191,   191,   196,   198,   199,
+   202,   203,   206,   207,   210,   211,   214,   225,   225,   226,
+   227,   228,   229,   230,   231,   232,   235,   236,   243
 };
 #endif
 
 
 #if YYDEBUG != 0 || defined (YYERROR_VERBOSE)
 
-static const char * const yytname[] = {   "$","error","$undefined.","AWK_IDENT",
-"BASH_IDENT","C_IDENTIFIER","C_NUMBER","C_STRING","ELISP_SYMBOL","ELISP_OTHER_ATOM",
-"PO_MSGID","PO_MSGSTR","PO_STRING","'['","']'","'''","'('","'.'","')'","init",
-"@1","file","awk_file","bash_file","c_file","elisp_file","elisp_expr_list","elisp_expr",
-"po_file","po_entry_list","po_entry","po_string_list", NULL
+static const char * const yytname[] = {   "$","error","$undefined.","STRING",
+"AWK_STARTER","C_STARTER","C_IDENTIFIER","C_NUMBER","ELISP_STARTER","ELISP_SYMBOL",
+"ELISP_OTHER_ATOM","PO_STARTER","PO_MSGID","PO_MSGSTR","PERL_STARTER","PYTHON_STARTER",
+"PYTHON_IDENTIFIER","PYTHON_DEFINE","PYTHON_OTHER","SHELL_STARTER","'['","']'",
+"'''","'('","'.'","')'","':'","'{'","'}'","init","@1","file","awk_file","c_file",
+"elisp_file","elisp_expr_list","elisp_expr","perl_file","po_file","po_entry",
+"@2","python_file","@3","python_fragment_list","python_define","@4","@5","python_docstring",
+"python_token_list","python_any_token_list","python_any_token","python_token",
+"@6","python_parenthetical","shell_file", NULL
 };
 #endif
 
 static const short yyr1[] = {     0,
-    20,    19,    21,    21,    21,    21,    21,    21,    22,    23,
-    24,    25,    26,    26,    26,    27,    27,    27,    27,    27,
-    27,    28,    29,    29,    29,    30,    31,    31
+    30,    29,    31,    31,    31,    31,    31,    31,    31,    31,
+    32,    33,    34,    34,    35,    35,    35,    36,    36,    36,
+    36,    36,    36,    37,    38,    38,    40,    39,    42,    41,
+    43,    43,    43,    43,    45,    44,    46,    44,    47,    47,
+    48,    48,    49,    49,    50,    50,    52,    51,    51,    51,
+    51,    51,    51,    51,    51,    51,    53,    53,    54
 };
 
 static const short yyr2[] = {     0,
-     0,     2,     0,     1,     1,     1,     1,     1,     1,     1,
-     1,     2,     0,     2,     2,     1,     1,     3,     2,     5,
-     3,     1,     1,     2,     2,     4,     1,     2
+     0,     2,     0,     2,     2,     2,     2,     2,     2,     2,
+     0,     0,     1,     2,     0,     2,     2,     1,     1,     3,
+     2,     5,     3,     0,     1,     2,     0,     5,     0,     3,
+     0,     1,     2,     3,     0,     4,     0,     5,     0,     1,
+     1,     2,     1,     2,     1,     1,     0,     3,     2,     3,
+     2,     3,     2,     3,     1,     1,     2,     3,     0
 };
 
 static const short yydefact[] = {     1,
-     3,     9,    10,    11,    16,    17,     0,    13,     0,    13,
-     2,     4,     5,     6,     7,    13,     8,     0,    23,    27,
-     0,     0,    19,     0,     0,    25,    24,     0,    28,    15,
-    18,    14,     0,    21,    26,     0,    20,     0,     0,     0
+     3,    11,    12,     0,     0,    24,    29,    59,     2,     4,
+     5,    18,    19,    15,     0,    15,     6,    13,    27,     8,
+    25,     7,     9,    39,    10,     0,    21,     0,    14,     0,
+    26,    40,    31,    17,    20,    16,     0,    23,     0,    47,
+    55,     0,     0,    56,     0,    30,    32,    41,     0,     0,
+     0,    45,    51,     0,    43,    46,    49,     0,    53,     0,
+     0,    33,    42,    22,    28,     0,    48,    52,    44,    50,
+    54,    35,     0,    34,    57,     0,    39,    37,    58,    36,
+    39,    38,     0,     0,     0
 };
 
-static const short yydefgoto[] = {    38,
-     1,    11,    12,    13,    14,    15,    22,    32,    17,    18,
-    19,    21
+static const short yydefgoto[] = {    83,
+     1,     9,    10,    11,    17,    26,    36,    22,    20,    21,
+    30,    23,    24,    46,    62,    77,    81,    33,    47,    54,
+    55,    56,    51,    67,    25
 };
 
 static const short yypact[] = {-32768,
-    35,-32768,-32768,-32768,-32768,-32768,    11,-32768,    44,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,     5,-32768,-32768,
-    -8,    21,-32768,     1,    12,-32768,-32768,    11,-32768,-32768,
--32768,-32768,    44,-32768,    14,    -7,-32768,    24,    31,-32768
+   160,-32768,-32768,    53,    -6,-32768,-32768,-32768,-32768,-32768,
+-32768,-32768,-32768,-32768,    53,-32768,    53,-32768,-32768,    -6,
+-32768,-32768,-32768,     7,-32768,   140,-32768,    44,-32768,    19,
+-32768,-32768,   162,-32768,-32768,-32768,    53,-32768,    11,-32768,
+-32768,     0,    54,-32768,    16,     8,   120,-32768,     4,    34,
+    17,-32768,-32768,    68,-32768,-32768,-32768,    80,-32768,    32,
+   -19,   162,-32768,-32768,-32768,    94,-32768,-32768,-32768,-32768,
+-32768,-32768,    15,   120,-32768,   106,     7,-32768,-32768,-32768,
+     7,-32768,    46,    47,-32768
 };
 
 static const short yypgoto[] = {-32768,
--32768,-32768,-32768,-32768,-32768,-32768,    -9,    -1,-32768,-32768,
-    15,    13
+-32768,-32768,-32768,-32768,-32768,    33,    -4,-32768,-32768,    31,
+-32768,-32768,-32768,-32768,-32768,-32768,-32768,   -72,    -1,   -28,
+   -46,   -31,-32768,    -5,-32768
 };
 
 
-#define	YYLAST		60
+#define	YYLAST		189
 
 
-static const short yytable[] = {    16,
-    24,    30,    28,    29,   -22,    26,    25,    23,     5,     6,
-    37,   -12,    30,     8,     7,     9,    10,    33,    34,     5,
-     6,    30,    20,    39,     8,    29,     9,    10,     5,     6,
-    40,    36,    27,     8,    31,     9,    10,     2,     3,     4,
-    35,     0,     5,     6,     7,     0,     0,     8,     0,     9,
-    10,     5,     6,     0,     0,     0,     8,     0,     9,    10
+static const short yytable[] = {    18,
+    63,    48,    52,    66,    80,    19,    72,    69,    82,    32,
+    27,    69,    29,    69,    58,    40,    60,    41,    52,    42,
+    53,    39,    43,    50,    61,    44,    45,    63,    64,    69,
+    48,    40,    49,    41,    52,    42,    65,    76,    43,    66,
+    78,    44,    45,    59,    34,    84,    85,    40,    28,    41,
+    31,    42,    12,    13,    43,    73,    52,    44,    45,    71,
+    74,    12,    13,    14,     0,    15,    16,    37,    38,    40,
+    52,    41,    14,    42,    15,    16,    43,     0,    57,    44,
+    45,     0,    52,    40,     0,    41,     0,    42,    68,     0,
+    43,     0,     0,    44,    45,    40,    52,    41,     0,    42,
+     0,     0,    43,     0,    70,    44,    45,     0,    52,    40,
+     0,    41,     0,    42,     0,     0,    43,     0,    75,    44,
+    45,    40,    52,    41,     0,    42,     0,     0,    43,     0,
+    79,    44,    45,     0,     0,    40,     0,    41,     0,    42,
+    34,     0,    43,     0,     0,    44,    45,     0,    12,    13,
+     0,     0,     0,     0,     0,     0,     0,     0,     0,    14,
+    35,    15,    16,     2,     3,     0,     0,     4,     0,     0,
+     5,     0,     0,     6,     7,     0,     0,    40,     8,    41,
+     0,    42,     0,     0,    43,     0,     0,    44,    45
 };
 
-static const short yycheck[] = {     1,
-    10,     1,    11,    12,     0,     1,    16,     9,     8,     9,
-    18,     0,     1,    13,    10,    15,    16,    17,    18,     8,
-     9,     1,    12,     0,    13,    12,    15,    16,     8,     9,
-     0,    33,    18,    13,    14,    15,    16,     3,     4,     5,
-    28,    -1,     8,     9,    10,    -1,    -1,    13,    -1,    15,
-    16,     8,     9,    -1,    -1,    -1,    13,    -1,    15,    16
+static const short yycheck[] = {     4,
+    47,    33,     3,    23,    77,    12,    26,    54,    81,     3,
+    15,    58,    17,    60,    43,    16,    45,    18,     3,    20,
+    21,     3,    23,    13,    17,    26,    27,    74,    25,    76,
+    62,    16,    37,    18,     3,    20,     3,    66,    23,    23,
+    26,    26,    27,    28,     1,     0,     0,    16,    16,    18,
+    20,    20,     9,    10,    23,    61,     3,    26,    27,    28,
+    62,     9,    10,    20,    -1,    22,    23,    24,    25,    16,
+     3,    18,    20,    20,    22,    23,    23,    -1,    25,    26,
+    27,    -1,     3,    16,    -1,    18,    -1,    20,    21,    -1,
+    23,    -1,    -1,    26,    27,    16,     3,    18,    -1,    20,
+    -1,    -1,    23,    -1,    25,    26,    27,    -1,     3,    16,
+    -1,    18,    -1,    20,    -1,    -1,    23,    -1,    25,    26,
+    27,    16,     3,    18,    -1,    20,    -1,    -1,    23,    -1,
+    25,    26,    27,    -1,    -1,    16,    -1,    18,    -1,    20,
+     1,    -1,    23,    -1,    -1,    26,    27,    -1,     9,    10,
+    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    20,
+    21,    22,    23,     4,     5,    -1,    -1,     8,    -1,    -1,
+    11,    -1,    -1,    14,    15,    -1,    -1,    16,    19,    18,
+    -1,    20,    -1,    -1,    23,    -1,    -1,    26,    27
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/usr/local/share/bison.simple"
+#line 3 "/usr/share/bison.simple"
 
 /* Skeleton output parser for bison,
    Copyright (C) 1984, 1989, 1990 Free Software Foundation, Inc.
@@ -200,27 +267,20 @@ static const short yycheck[] = {     1,
    This special exception was added by the Free Software Foundation
    in version 1.24 of Bison.  */
 
-/* This is the parser code that is written into each bison parser
-  when the %semantic_parser declaration is not specified in the grammar.
-  It was written by Richard Stallman by simplifying the hairy parser
-  used when %semantic_parser is specified.  */
-
 #ifndef alloca
 #ifdef __GNUC__
 #define alloca __builtin_alloca
 #else /* not GNU C.  */
-#if (!defined (__STDC__) && defined (sparc)) || defined (__sparc__) || defined (__sparc) || defined (__sgi) || (defined (__sun) && defined (__i386))
+#if (!defined (__STDC__) && defined (sparc)) || defined (__sparc__) || defined (__sparc) || defined (__sgi)
 #include <alloca.h>
 #else /* not sparc */
-/* This used to test MSDOS, but that is a bad idea
-   since that is in the user namespace.  */
-#if (defined (_MSDOS) || defined (_MSDOS_)) && !defined (__TURBOC__)
+#if defined (MSDOS) && !defined (__TURBOC__)
 #include <malloc.h>
 #else /* not MSDOS, or __TURBOC__ */
 #if defined(_AIX)
 #include <malloc.h>
  #pragma alloca
-#else /* not MSDOS, or __TURBOC__, or _AIX */
+#else /* not MSDOS, __TURBOC__, or _AIX */
 #ifdef __hpux
 #ifdef __cplusplus
 extern "C" {
@@ -235,6 +295,11 @@ void *alloca ();
 #endif /* not sparc.  */
 #endif /* not GNU C.  */
 #endif /* alloca not defined.  */
+
+/* This is the parser code that is written into each bison parser
+  when the %semantic_parser declaration is not specified in the grammar.
+  It was written by Richard Stallman by simplifying the hairy parser
+  used when %semantic_parser is specified.  */
 
 /* Note: there must be only one dollar sign in this file.
    It is replaced by the list of actions, each action
@@ -327,9 +392,13 @@ int yydebug;			/*  nonzero means print parse trace	*/
 #define YYMAXDEPTH 10000
 #endif
 
+#ifndef YYPARSE_RETURN_TYPE
+#define YYPARSE_RETURN_TYPE int
+#endif
+
 /* Prevent warning if -Wstrict-prototypes.  */
 #ifdef __GNUC__
-int yyparse (void);
+YYPARSE_RETURN_TYPE yyparse (void);
 #endif
 
 #if __GNUC__ > 1		/* GNU C and GNU C++ define this.  */
@@ -360,8 +429,8 @@ __yy_memcpy (to, from, count)
 static void
 __yy_memcpy (char *to, char *from, int count)
 {
-  register char *t = to;
   register char *f = from;
+  register char *t = to;
   register int i = count;
 
   while (i-- > 0)
@@ -371,7 +440,7 @@ __yy_memcpy (char *to, char *from, int count)
 #endif
 #endif
 
-#line 196 "/usr/local/share/bison.simple"
+#line 196 "/usr/share/bison.simple"
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
    into yyparse.  The argument should have type void *.
@@ -392,7 +461,7 @@ __yy_memcpy (char *to, char *from, int count)
 #define YYPARSE_PARAM_DECL
 #endif /* not YYPARSE_PARAM */
 
-int
+YYPARSE_RETURN_TYPE
 yyparse(YYPARSE_PARAM_ARG)
      YYPARSE_PARAM_DECL
 {
@@ -676,34 +745,32 @@ yyreduce:
   switch (yyn) {
 
 case 1:
-#line 26 "parser.y"
+#line 34 "../../src/parser.y"
 {
 #if YYDEBUG
-  yydebug = debug_yacc;
+  yydebug = debug_bison_option;
 #endif
 ;
     break;}
-case 12:
-#line 63 "parser.y"
-{
-  /* Preventing default action.  */
-;
-    break;}
 case 13:
-#line 69 "parser.y"
+#line 73 "../../src/parser.y"
+{;
+    break;}
+case 15:
+#line 78 "../../src/parser.y"
 {
   yyval.elisp_expr_list.count = 0;
 ;
     break;}
-case 14:
-#line 73 "parser.y"
+case 16:
+#line 82 "../../src/parser.y"
 {
   switch (yyval.elisp_expr_list.count)
     {
     case 0:
       yyval.elisp_expr_list.class = yyvsp[0].elisp_expr.class;
       if (yyval.elisp_expr_list.class == MARK_SYMBOL)
-	translatable_flag = 1;
+	translatable_flag = true;
       break;
 
     case 1:
@@ -717,7 +784,7 @@ case 14:
     case 2:
       yyval.elisp_expr_list.class = yyvsp[-1].elisp_expr_list.class;
       if (yyval.elisp_expr_list.class == DEFINE_SYMBOL)
-	translatable_flag = 1;
+	translatable_flag = doc_strings_option;
 
     default:
       yyval.elisp_expr_list.class = yyvsp[-1].elisp_expr_list.class;
@@ -725,50 +792,89 @@ case 14:
   yyval.elisp_expr_list.count = yyvsp[-1].elisp_expr_list.count + 1;
 ;
     break;}
-case 16:
-#line 104 "parser.y"
-{
-  enum elisp_expr_class class;
-
-  if (find_entry (&symbol_table, yytext, strlen (yytext), (void **) &class) < 0)
-    yyval.elisp_expr.class = OTHER_SYMBOL;
-  else
-    yyval.elisp_expr.class = class;
-;
-    break;}
-case 17:
-#line 113 "parser.y"
-{
-  yyval.elisp_expr.class = S_EXPRESSION;
-;
-    break;}
 case 18:
-#line 117 "parser.y"
+#line 113 "../../src/parser.y"
 {
-  yyval.elisp_expr.class = S_EXPRESSION;
+  struct symbol lookup;
+  struct symbol *entry;
+
+  lookup.string = yytext;
+  entry = hash_lookup (symbol_table, &lookup);
+  if (entry)
+    yyval.elisp_expr.class = entry->class;
+  else
+    yyval.elisp_expr.class = OTHER_SYMBOL;
 ;
     break;}
 case 19:
-#line 121 "parser.y"
+#line 125 "../../src/parser.y"
 {
   yyval.elisp_expr.class = S_EXPRESSION;
 ;
     break;}
 case 20:
-#line 125 "parser.y"
+#line 129 "../../src/parser.y"
 {
   yyval.elisp_expr.class = S_EXPRESSION;
 ;
     break;}
 case 21:
-#line 129 "parser.y"
+#line 133 "../../src/parser.y"
 {
   yyval.elisp_expr.class = S_EXPRESSION;
 ;
     break;}
+case 22:
+#line 137 "../../src/parser.y"
+{
+  yyval.elisp_expr.class = S_EXPRESSION;
+;
+    break;}
+case 23:
+#line 141 "../../src/parser.y"
+{
+  yyval.elisp_expr.class = S_EXPRESSION;
+;
+    break;}
+case 27:
+#line 162 "../../src/parser.y"
+{
+  translatable_flag = 1;
+;
+    break;}
+case 29:
+#line 174 "../../src/parser.y"
+{
+  translatable_flag = doc_strings_option;
+;
+    break;}
+case 35:
+#line 187 "../../src/parser.y"
+{
+  translatable_flag = doc_strings_option;
+;
+    break;}
+case 37:
+#line 192 "../../src/parser.y"
+{
+  translatable_flag = doc_strings_option;
+;
+    break;}
+case 47:
+#line 215 "../../src/parser.y"
+{
+  struct symbol lookup;
+  struct symbol *entry;
+
+  lookup.string = yytext;
+  entry = hash_lookup (symbol_table, &lookup);
+  if (entry && entry->class == MARK_SYMBOL)
+    translatable_flag = true;
+;
+    break;}
 }
    /* the action file gets copied in in place of this dollarsign */
-#line 498 "/usr/local/share/bison.simple"
+#line 498 "/usr/share/bison.simple"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -964,5 +1070,4 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 149 "parser.y"
-
+#line 245 "../../src/parser.y"
