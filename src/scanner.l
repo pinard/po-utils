@@ -1,6 +1,6 @@
 /* Translatable strings extractor.
    Copyright (C) 1996, 2000 Progiciels Bourbeau-Pinard inc.
-   François Pinard <pinard@iro.umontreal.ca>, 1996.  */
+   FranÃ§ois Pinard <pinard@iro.umontreal.ca>, 1996.  */
 
 %{
 #include "xpot.h"
@@ -11,6 +11,10 @@
 /* Set to true by either the parser or scanner when next string should be
    considered translatable.  Reset to false when the scanner returns.  */
 bool translatable_flag;
+
+/* Set to true by the parser when it expects a terminating semicolon.
+   Reset to false by the parser when it got one. */
+bool expect_semicolon_flag;
 
 /* Error reporting routine.  */
 void yyerror (const char *);
@@ -157,13 +161,27 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
     /* Identifier.  */
     C_RETURN (C_IDENTIFIER, YY_START);
   }
+  {identifier}__doc__{white}*\[\]{white}*=	{
+    /* Python doc string.  */
+    if (doc_strings_option)
+      C_RETURN (C_PYTHON_DOCSTRING, YY_START);
+    else
+      C_RETURN (C_OTHER, YY_START);
+  }
   {identifier}		|
   [0-9]+		|
   \'\\.\'		|
   \'.\'			|
-  [!%&+,-./:<=>?^|~;]+	|
+  [!%&+,-./:<=>?^|~]+	|
   \*  			{
     C_RETURN (C_OTHER, YY_START);
+  }
+  \;			{
+    /* Either terminates a Python Docstring, or is just a plain token.  */
+    if (expect_semicolon_flag)
+      C_RETURN (yytext[0], YY_START);
+    else
+      C_RETURN (C_OTHER, YY_START);
   }
   [()\[\]\{\}]		{
     /* Bracketing delimiter.  */

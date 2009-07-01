@@ -15,8 +15,29 @@
 /* Define if you have the `l' library (-ll). */
 #undef HAVE_LIBL
 
+/* Define if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
 /* Define if you have the `strerror' function. */
 #undef HAVE_STRERROR
+
+/* Define if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if you have the <utmpx.h> header file. */
+#undef HAVE_UTMPX_H
 
 /* Define if you have the <values.h> header file. */
 #undef HAVE_VALUES_H
@@ -24,11 +45,62 @@
 /* Define if you have the `vprintf' function. */
 #undef HAVE_VPRINTF
 
+/* Define if you need the declaration of `free'. */
+#undef NEED_FREE_DECL
+
+/* Define if you need the declaration of `getenv'. */
+#undef NEED_GETENV_DECL
+
+/* Define if you need the declaration of `geteuid'. */
+#undef NEED_GETEUID_DECL
+
+/* Define if you need the declaration of `getlogin'. */
+#undef NEED_GETLOGIN_DECL
+
+/* Define if you need the declaration of `getutent'. */
+#undef NEED_GETUTENT_DECL
+
+/* Define if you need the declaration of `lseek'. */
+#undef NEED_LSEEK_DECL
+
+/* Define if you need the declaration of `malloc'. */
+#undef NEED_MALLOC_DECL
+
+/* Define if you need the declaration of `memchr'. */
+#undef NEED_MEMCHR_DECL
+
+/* Define if you need the declaration of `nanosleep'. */
+#undef NEED_NANOSLEEP_DECL
+
+/* Define if you need the declaration of `realloc'. */
+#undef NEED_REALLOC_DECL
+
+/* Define if you need the declaration of `stpcpy'. */
+#undef NEED_STPCPY_DECL
+
+/* Define if you need the declaration of `strndup'. */
+#undef NEED_STRNDUP_DECL
+
+/* Define if you need the declaration of `strstr'. */
+#undef NEED_STRSTR_DECL
+
+/* Define if you need the declaration of `strtoull'. */
+#undef NEED_STRTOULL_DECL
+
+/* Define if you need the declaration of `strtoul'. */
+#undef NEED_STRTOUL_DECL
+
+/* Define if you need the declaration of `ttyname'. */
+#undef NEED_TTYNAME_DECL
+
 /* Name of package */
 #undef PACKAGE
 
 /* Define if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Define if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
 
 /* Version number of package */
 #undef VERSION

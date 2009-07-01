@@ -2,9 +2,6 @@ AUTOMAKE_OPTIONS = gnits
 
 bin_PROGRAMS = xpot
 noinst_HEADERS = parser.h xpot.h
-lisp_LISP = po-mode.el
-
-EXTRA_DIST = po-mode.el
 
 xpot_SOURCES = parser.y scanner.l xpot.c
 xpot_LDADD = @LEXLIB@ ../lib/libxpot.a
@@ -13,6 +10,8 @@ CPPFLAGS = -DYYDEBUG
 INCLUDES = -I.. -I$(srcdir) -I$(top_srcdir)/lib
 LFLAGS = -8pd
 YFLAGS = -dtv
+
+EMACSDIR = /usr/local/share/emacs/20.6.90
 
 essai-elisp: xpot
 #	 xpot=`pwd`/xpot \

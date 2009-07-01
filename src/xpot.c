@@ -1,6 +1,6 @@
 /* Translatable strings extractor.
-   Copyright © 2000 Progiciels Bourbeau-Pinard inc.
-   François Pinard <pinard@iro.umontreal.ca>, 2000.  */
+   Copyright Â© 2000 Progiciels Bourbeau-Pinard inc.
+   FranÃ§ois Pinard <pinard@iro.umontreal.ca>, 2000.  */
 
 #include "xpot.h"
 #include <time.h>
@@ -480,7 +480,7 @@ static const struct option long_options[] =
   {"help", no_argument, (int *) &show_help, 1},
   {"keyword", required_argument, NULL, 'k'},
   {"no-header", no_argument, NULL, 'n'},
-  {"output_file", required_argument, NULL, 'o'},
+  {"output-file", required_argument, NULL, 'o'},
   {"parser-debug", 0, NULL, 'y'},
   {"release", required_argument, NULL, 'v'},
   {"scanner-debug", 0, NULL, 'l'},
@@ -549,16 +549,15 @@ main (int argc, char **argv)
     {
       printf ("xpot (Free %s) %s\n", PACKAGE, VERSION);
       fputs (_("\
+Written by Franc,ois Pinard <pinard@iro.umontreal.ca>.\n"),
+	     stdout);
+      fputs (_("\
 \n\
 Copyright (C) 1996, 2000 Progiciels Bourbeau-Pinard inc.\n"),
 	     stdout);
       fputs (_("\
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"),
-	     stdout);
-      fputs (_("\
-\n\
-Written by Franc,ois Pinard <pinard@iro.umontreal.ca>.\n"),
 	     stdout);
       exit (EXIT_SUCCESS);
     }

@@ -1,6 +1,6 @@
 /* Translatable strings extractor.
-   Copyright © 2000 Progiciels Bourbeau-Pinard inc.
-   François Pinard <pinard@iro.umontreal.ca>, 2000.  */
+   Copyright Â© 2000 Progiciels Bourbeau-Pinard inc.
+   FranÃ§ois Pinard <pinard@iro.umontreal.ca>, 2000.  */
 
 /* For all languages, the syntax is very minimalistic.  It skips over
    well-parenthetised expressions, and such things.  Most work is left to the
@@ -8,7 +8,7 @@
 
 %token STRING
 %token AWK_STARTER
-%token C_STARTER C_IDENTIFIER C_OTHER
+%token C_STARTER C_IDENTIFIER C_PYTHON_DOCSTRING C_OTHER
 %token ELISP_STARTER ELISP_SYMBOL ELISP_OTHER_ATOM
 %token PO_STARTER PO_MSGID PO_MSGSTR
 %token PERL_STARTER
@@ -81,6 +81,10 @@ c_token			: C_IDENTIFIER
 			| '[' c_token_list ']'
 			| '{' '}'
 			| '{' c_token_list '}'
+			| C_PYTHON_DOCSTRING {
+			    translatable_flag = true;
+			    expect_semicolon_flag = true;
+			  } c_python_docstring
 			| STRING
 			| C_OTHER
 			;
@@ -88,6 +92,8 @@ c_token			: C_IDENTIFIER
 c_parenthetical		: ')'
 			| c_token_list ')'
 			;
+
+c_python_docstring	: c_token_list ';' { expect_semicolon_flag = false; }
 
 /*---------------------------------------------------------------------------.
 | ELISP parsing.  From atoms, we only need to distinguish symbols.  Opening  |

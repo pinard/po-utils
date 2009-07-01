@@ -1,22 +1,22 @@
 Free xpot NEWS - User visible changes.		-*- outline -*- (allout)
-Copyright © 2000 Progiciels Bourbeau-Pinard inc.
+Copyright Â© 2000 Progiciels Bourbeau-Pinard inc.
 
-* Version 0.6 - François Pinard, 2000-01.
+* Version 0.6 - FranÃ§ois Pinard, 2000-01.
 
 .* None
 
-* Version 0.5 - François Pinard, 2000-01.
+* Version 0.5 - FranÃ§ois Pinard, 2000-01.
 
 .* Source references collected from read PO files.
 .* Source references refilled on generated PO files.
 .* `xpot' generates references more compactly, PO mode adjusted.
 
-* Version 0.4 - François Pinard, 2000-01.
+* Version 0.4 - FranÃ§ois Pinard, 2000-01.
 
 .* Package renamed from `xpot' to `po-utils'.
 .* Include and install PO mode.
 .* Process C, C++ and Emacs LISP (if not Mule).
 
-* Version 0.3 - François Pinard, 2000-01.
+* Version 0.3 - FranÃ§ois Pinard, 2000-01.
 
 .* First public release.

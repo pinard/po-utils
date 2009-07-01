@@ -1,6 +1,6 @@
 /* Translatable strings extractor.
-   Copyright © 2000 Progiciels Bourbeau-Pinard inc.
-   François Pinard <pinard@iro.umontreal.ca>, 2000.  */
+   Copyright Â© 2000 Progiciels Bourbeau-Pinard inc.
+   FranÃ§ois Pinard <pinard@iro.umontreal.ca>, 2000.  */
 
 #if HAVE_CONFIG_H
 # include <config.h>
@@ -81,6 +81,7 @@ extern yytext[];
 extern int yyleng;
 
 extern bool translatable_flag;
+extern bool expect_semicolon_flag;
 
 /* Parser peculiarities for Emacs LISP.  */
 

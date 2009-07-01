@@ -1,0 +1,17 @@
+A new pretest for the PO utilities is now available as:
+
+   http://po-utils.progiciels-bpi.ca/archives/po-utils-0.6.tar.gz
+
+Please report problems to <po-utils-bugs@iro.umontreal.ca>, or directly to
+me at to <pinard@iro.umontreal.ca>.
+
+For PO mode, I split portability matters in two, so it _both_ compile
+without warnings (on Emacs 20.4 at least), and run correctly :-).
+
+`xpot' has been changed to read references from PO files, instead of
+referencing the PO file itself.  References are also properly refilled
+on output.  Still to be done: transmitting flags from read PO files.
+
+I changed `xpot' to generate references more compactly, avoiding the
+repetition of the file name when superfluous.  PO mode has been changed
+accordingly to imply the file name as needed.

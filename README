@@ -1,101 +1,116 @@
-* README file for `po-utils'			allout -*- outline -*-
+.. role:: code(strong)
+.. role:: file(emphasis)
 
-  PO utilities is meant to become a collection of tools for handling PO
-  files.  Until there is a real Texinfo manual for it, the documentation is
-  kept in this `README'.
+========================
+README file for po-utils
+========================
 
-.* What are these PO and POT things?
+PO utilities is meant to become a collection of tools for handling PO
+files.  Until there is a real Texinfo manual for it, the documentation
+is kept in this :file:README.
 
-   There is an on-going effort so programs are made to comply with national
-   differences, like the way of writing dates, currency, decimal number
-   notations, and such things.  The preparation of programs towards this
-   goal is called "internationalisation" (or "i18n" for short), and the
-   on-the-fly adjustment of an already internationalised program to a
-   particular set of habits is called "localisation" (or "l10n" for short).
-   Each particular set of habits for a given nation is called a "locale".
+What are these PO and POT things?
+=================================
 
-   One important aspect of internationalisation is that programs should be
-   able to write their messages and diagnostics in more than one language.
-   This aspect is particularly demanding because, contrarily to other aspects
-   of a "locale" which are set once and for all, program messages have to
-   be translated separately for every programs, as original messages differ.
+There is an on-going effort so programs are made to comply with national
+differences, like the way of writing dates, currency, decimal number
+notations, and such things.  The preparation of programs towards this
+goal is called *internationalisation* (or *i18n* for short), and the
+on-the-fly adjustment of an already internationalised program to a
+particular set of habits is called *localisation* (or *l10n* for short).
+Each particular set of habits for a given nation is called a *locale*.
 
-   A PO file is a pivoting point between maintainers of internationalised
-   programs and various national translators.  Each particular PO file holds,
-   for a given package, the original program messages needing translation,
-   and the translation of each of these messages into a given national
-   language.  That is, there is usually one PO file per package-language
-   combination.  A PO file containing only original messages, and empty
-   strings instead of translations, is called a PO template, or POT file.
-   Translators usually begin with a POT file, and turn it into a PO file
-   by adding translations.
+One important aspect of internationalisation is that programs should be
+able to write their messages and diagnostics in more than one language.
+This aspect is particularly demanding because, contrarily to other
+aspects of a *locale* which are set once and for all, program messages
+have to be translated separately for every programs, as original
+messages differ.
 
-   While a package is being internationalised, each string used in the
-   program is considered, and those who might need translation are specially
-   marked.  Some editing tools (like `PO mode' in Emacs) have the purpose
-   of easing that tedious marking task.  Then, other tools (like `xpot',
-   `pygettext' or `xgettext') have the purpose of scanning a set of marked
-   sources, and collecting all marked strings into a POT file.  This POT
-   file is given to translators, who add translations (`PO mode' is helpful
-   here as well).  Each resulting PO file is compiled into an MO file (using
-   `msgfmt') for faster access, and installed together with the package.
-   When the installed package runs in a given locale, one installed MO
-   file is selected according to the language of the user, and used to
-   obtain the translated version of messages and diagnostics, as needed.
+A PO file is a pivoting point between maintainers of internationalised
+programs and various national translators.  Each particular PO file
+holds, for a given package, the original program messages needing
+translation, and the translation of each of these messages into a
+given national language.  That is, there is usually one PO file per
+package-language combination.  A PO file containing only original
+messages, and empty strings instead of translations, is called a PO
+template, or POT file.  Translators usually begin with a POT file, and
+turn it into a PO file by adding translations.
 
-.* PO mode
+While a package is being internationalised, each string used in the
+program is considered, and those who might need translation are
+specially marked.  Some editing tools (like :code:`PO mode` in Emacs)
+have the purpose of easing that tedious marking task.  Then, other tools
+(like :code:xpot, :code:pygettext or :code:xgettext) have the purpose of
+scanning a set of marked sources, and collecting all marked strings into
+a POT file.  This POT file is given to translators, who add translations
+(:code:`PO mode` is helpful here as well).  Each resulting PO file is
+compiled into an MO file (using :code:msgfmt) for faster access, and
+installed together with the package.  When the installed package runs
+in a given locale, one installed MO file is selected according to the
+language of the user, and used to obtain the translated version of
+messages and diagnostics, as needed.
 
-   File `po-mode.el' implements a set of Emacs editing functions for
-   PO files.  It can be used by maintainers to mark translatable strings
-   in a set of sources, or by translators to add or revise translations
-   in a PO file.  The main documentation is currently part of the manual
-   which comes in the `gettext' distribution.
+:code:`PO mode`
+===============
 
-.* xpot
+File :file:`po-mode.el` implements a set of Emacs editing functions for
+PO files.  It can be used by maintainers to mark translatable strings in
+a set of sources, or by translators to add or revise translations in a
+PO file.  The main documentation is currently part of the manual which
+comes in the :code:gettext distribution.
 
-. + Introduction
+:code:xpot
+==========
 
-    This tool produces a PO template file on standard output, given a
-    collection of source files.  It currently handles C, C++, Emacs LISP,
-    and Python sources, as well as from pre-existing PO files.  It is meant
-    to handle Awk, Perl or shell scripts, when everything will be ready
-    for these.  And in fact, anything that could help internationalisation.
+Introduction
+------------
 
-    To find out the language of a program, `xpot' looks for hints in the
-    extension of the file name, or else, in the contents of the first two
-    lines of the file, looking for `#!PATH/env PROGRAM', `#!PATH/PROGRAM',
-    `-*-mode:MODE-*-' or `-*-MODE-*-' in the first two lines.
+This tool produces a PO template file on standard output, given a
+collection of source files.  It currently handles C, C++, Emacs LISP,
+and Python sources, as well as from pre-existing PO files.  It is meant
+to handle Awk, Perl or shell scripts, when everything will be ready for
+these.  And in fact, anything that could help internationalisation.
 
-    `xpot' is itself written in C, Flex and Bison, and I would expect it to
-    be rather fast even for big projects.  This is an alpha version.
+To find out the language of a program, :code:xpot looks for hints
+in the extension of the file name, or else, in the contents of the
+first two lines of the file, looking for ``#!PATH/env PROGRAM``,
+``#!PATH/PROGRAM``, ``-*-mode:MODE-*-`` or ``-*-MODE-*-`` in the first
+two lines.
 
-. + Options
+:code:xpot is itself written in C, Flex and Bison, and I would expect it
+to be rather fast even for big projects.  This is an alpha version.
 
-    One option to `xpot' allows for automatic extraction of all doc strings,
-    which never need explicit marking in either Emacs LISP or Python,
-    for this reason.  Translation of doc string might be useful in highly
-    interactive programs, giving access to interpreter facilities.
+Options
+-------
 
-. + Emacs LISP
+One option to :code:xpot allows for automatic extraction of all doc
+strings, which never need explicit marking in either Emacs LISP or
+Python, for this reason.  Translation of doc string might be useful in
+highly interactive programs, giving access to interpreter facilities.
 
-    Mule files, when a character uses many bytes, may not be analysed
-    correctly.
+Emacs LISP
+----------
 
-. + Python
+Mule files, when a character uses many bytes, may not be analysed
+correctly.
 
-    Adjacent strings (those only separated by whitespace or comments) are
-    correctly concatenated at extraction time.  Strings are considered
-    translatable if they are used within _(STRING) or gettext(STRING)
-    constructs, other keywords may be added, of course.
+Python
+------
 
-    To palliate the lack of a pre-processor, strings which translation
-    should be delayed may be marked as translatable by using one of the
-    following special constructs, which are already valid Python:
+Adjacent strings (those only separated by whitespace or comments) are
+correctly concatenated at extraction time.  Strings are considered
+translatable if they are used within _(STRING) or gettext(STRING)
+constructs, other keywords may be added, of course.
 
-       ''"text"        ''r"text"
-       ""'text'        ""r'text'
-       ''"""text"""    ''r"""text"""
-       ""'''text'''    ""r'''text'''
+To palliate the lack of a pre-processor, strings which translation
+should be delayed may be marked as translatable by using one of the
+following special constructs, which are already valid Python::
 
-    Doc strings, if their extraction has been selected, should be correctly
-    found even after very complex initialisation of keyword parameters.
+   ''"text"        ''r"text"
+   ""'text'        ""r'text'
+   ''"""text"""    ''r"""text"""
+   ""'''text'''    ""r'''text'''
+
+Doc strings, if their extraction has been selected, should be correctly
+found even after very complex initialisation of keyword parameters.

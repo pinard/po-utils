@@ -13,118 +13,118 @@
 
 ../rmail/po-auxiliaires
  1. 1994-12-04 Francois Pinard: New problems and suggestions for GNU locale
- 2. 1995-10-30 François Pinard: Re: Your heuristics and PO mode
- 3. 1996-03-21 François Pinard: Re: CLISP 1996-03-15
- 4. 1997-01-04 François Pinard: Re: New PO file for `cpio-2.3.911'
+ 2. 1995-10-30 FranÃ§ois Pinard: Re: Your heuristics and PO mode
+ 3. 1996-03-21 FranÃ§ois Pinard: Re: CLISP 1996-03-15
+ 4. 1997-01-04 FranÃ§ois Pinard: Re: New PO file for `cpio-2.3.911'
  5. 1997-01-05 Enrique Melero: Re: New PO file for `cpio-2.3.911'
- 6. 1997-03-10 François Pinard: Re: GNU Clib translation
- 7. 1997-09-06 François Pinard: Re: Send po files (Re: GNU-de PO mkid-3.0.8)
- 8. 1997-09-07 François Pinard: Auxiliary files in PO mode
- 9. 1997-09-07 François Pinard: Auxiliary files in PO mode
-10. 1997-09-05 François Pinard: PO mode status
-11. 1998-05-12 François Pinard: Re: I forgot to tell you
+ 6. 1997-03-10 FranÃ§ois Pinard: Re: GNU Clib translation
+ 7. 1997-09-06 FranÃ§ois Pinard: Re: Send po files (Re: GNU-de PO mkid-3.0.8)
+ 8. 1997-09-07 FranÃ§ois Pinard: Auxiliary files in PO mode
+ 9. 1997-09-07 FranÃ§ois Pinard: Auxiliary files in PO mode
+10. 1997-09-05 FranÃ§ois Pinard: PO mode status
+11. 1998-05-12 FranÃ§ois Pinard: Re: I forgot to tell you
 
 ../rmail/po-documentation
- 1. 1995-05-15 François Pinard: Re: Respecification of po-mode
- 2. 1996-03-18 François Pinard: Re: Little PO mode modifications
- 3. 1996-03-25 François Pinard: Re: Japanese m4
+ 1. 1995-05-15 FranÃ§ois Pinard: Re: Respecification of po-mode
+ 2. 1996-03-18 FranÃ§ois Pinard: Re: Little PO mode modifications
+ 3. 1996-03-25 FranÃ§ois Pinard: Re: Japanese m4
  4. 1996-03-28 MATSUSHITA Akiko: Re: Japanese m4
- 5. 1996-04-03 François Pinard: Re: #, fuzzy (msgmerge)
- 6. 1996-04-03 François Pinard: Re: #, fuzzy (msgmerge)
+ 5. 1996-04-03 FranÃ§ois Pinard: Re: #, fuzzy (msgmerge)
+ 6. 1996-04-03 FranÃ§ois Pinard: Re: #, fuzzy (msgmerge)
  7. 1996-04-03 Ulrich Drepper: Re: #, fuzzy (msgmerge)
- 8. 1996-04-04 François Pinard: Your comments about TAB in PO mode
- 9. 1996-05-18 François Pinard: Re: GNU-sv PO m4-1.4.3
-10. 1996-05-19 François Pinard: Re: GNU-sv PO m4-1.4.3
-11. 1997-09-02 François Pinard: Re: PO mode fuzzy and quit
-12. 1997-09-02 François Pinard: PO mode status
+ 8. 1996-04-04 FranÃ§ois Pinard: Your comments about TAB in PO mode
+ 9. 1996-05-18 FranÃ§ois Pinard: Re: GNU-sv PO m4-1.4.3
+10. 1996-05-19 FranÃ§ois Pinard: Re: GNU-sv PO m4-1.4.3
+11. 1997-09-02 FranÃ§ois Pinard: Re: PO mode fuzzy and quit
+12. 1997-09-02 FranÃ§ois Pinard: PO mode status
 13. 1997-09-06 Karl Eichwalder: Re: Send po files (Re: GNU-de PO mkid-3.0.8)
-14. 1997-09-21 François Pinard: New po-mode.el to test...
-15. 1997-12-18 François Pinard: PO mode auxil.doc
-16. 1998-05-10 François Pinard: Re: PO-mode for Emacs
-17. 1998-05-10 François Pinard: Re: Auxiliary files in PO mode
+14. 1997-09-21 FranÃ§ois Pinard: New po-mode.el to test...
+15. 1997-12-18 FranÃ§ois Pinard: PO mode auxil.doc
+16. 1998-05-10 FranÃ§ois Pinard: Re: PO-mode for Emacs
+17. 1998-05-10 FranÃ§ois Pinard: Re: Auxiliary files in PO mode
 18. 1997-10-12 Karl Eichwalder: Re: New po-mode.el to test...
-19. 1998-06-02 François Pinard: Re: wget-1.5.2-b1.hr.po
-20. 1999-02-07 François Pinard: Re: TP-Robot fileutils-4.0-b7.cs.po
-21. 1999-02-08 François Pinard: Re: Remarks to TP-Robot texinfo-3.12c.de.po
+19. 1998-06-02 FranÃ§ois Pinard: Re: wget-1.5.2-b1.hr.po
+20. 1999-02-07 FranÃ§ois Pinard: Re: TP-Robot fileutils-4.0-b7.cs.po
+21. 1999-02-08 FranÃ§ois Pinard: Re: Remarks to TP-Robot texinfo-3.12c.de.po
 
 ../rmail/po-lexique
  1. 1999-05-31 Dirk Lattermann: added to glossary-table.data
  2. 1999-07-10 Christopher R. Gabriel: PO Mode Enhanced?
  3. 1999-04-09 Primoz Peterlin: po-mode and computer-aided translation
- 4. 1999-07-30 François Pinard: Re: PO file format - change to discuss
+ 4. 1999-07-30 FranÃ§ois Pinard: Re: PO file format - change to discuss
  5. 1997-02-27 Hatzopoulos Yiannis: Lexicography
 
 ../rmail/po-manuals
  1. 1999-02-12 Guy Bobenrieth: diff/patch with different langage
 
 ../rmail/po-normalisation
- 1. 1996-04-01 François Pinard: Normalizing PO files [Re: #! -> #,]
+ 1. 1996-04-01 FranÃ§ois Pinard: Normalizing PO files [Re: #! -> #,]
  2. 1996-07-12 Ulrich Drepper: po-mode extension request
- 3. 1996-10-19 Göran Uddeborg: normalization
- 4. 1996-10-20 François Pinard: Re: normalization
+ 3. 1996-10-19 GÃ¶ran Uddeborg: normalization
+ 4. 1996-10-20 FranÃ§ois Pinard: Re: normalization
  5. 1996-12-11 Michel Robitaille: Mode PO autre probl`eme
- 6. 1996-12-26 François Pinard: Re: Mode PO autre probl`eme
- 7. 1997-09-02 François Pinard: Re: po-mode bug
+ 6. 1996-12-26 FranÃ§ois Pinard: Re: Mode PO autre probl`eme
+ 7. 1997-09-02 FranÃ§ois Pinard: Re: po-mode bug
  8. 1997-09-02 Ulrich Drepper: Re: po-mode bug
  9. 1998-12-08 Ulrich Drepper: Re: gettext files canonicalisation, a detail
 
-../rmail/po-problèmes
+../rmail/po-problÃ¨mes
  1. 1997-05-11 Lorenzo M. Catucci: Problems using po-mode under Xemacs 20.2 (at
  2. 1997-08-19 Ulrich Drepper: Re: German PO file for gettext
  3. 1997-08-20 Ulrich Drepper: Re: gettext 0.10.30 looks good!
  4. 1997-12-28 Primoz Peterlin: PO-mode for Emacs
- 5. 1998-05-10 François Pinard: Re: PO-mode for Emacs
- 6. 1998-05-21 François Pinard: Re: gettext 0.10.35 po-mode undo
+ 5. 1998-05-10 FranÃ§ois Pinard: Re: PO-mode for Emacs
+ 6. 1998-05-21 FranÃ§ois Pinard: Re: gettext 0.10.35 po-mode undo
  7. 1998-05-21 Kalle Niemitalo: Re: gettext 0.10.35 po-mode undo
- 8. 1999-07-25 François Pinard: New `po-mode.el'
+ 8. 1999-07-25 FranÃ§ois Pinard: New `po-mode.el'
  9. 1999-10-12 Karl Eichwalder: Re: The MIME-able robot not far from ready
-10. 3900-01-05 François Pinard: Re: Translation robot stuck?
+10. 3900-01-05 FranÃ§ois Pinard: Re: Translation robot stuck?
 
 ../rmail/po-suggestions
- 1. 1996-01-22 François Pinard: Notes on PO mode
- 2. 1996-01-22 François Pinard: Re: Notes on PO mode
+ 1. 1996-01-22 FranÃ§ois Pinard: Notes on PO mode
+ 2. 1996-01-22 FranÃ§ois Pinard: Re: Notes on PO mode
  3. 1996-03-14 Ulrich Drepper: Re: Correcting the picture
  4. 1996-03-14 Karl Eichwalder: Re: po-mode.el feature request
  5. 1996-03-24 Karl Eichwalder: po-mode.el: po-mode-edit-newline-and-indent
- 6. 1996-04-04 François Pinard: Re: #, fuzzy (msgmerge)
+ 6. 1996-04-04 FranÃ§ois Pinard: Re: #, fuzzy (msgmerge)
  7. 1996-10-06 Michel Robitaille: Pourquoi?
- 8. 1996-11-13 François Pinard: Re: Internationalization
- 9. 1996-11-22 François Pinard: Re: fileutils-3.13c test release
+ 8. 1996-11-13 FranÃ§ois Pinard: Re: Internationalization
+ 9. 1996-11-22 FranÃ§ois Pinard: Re: fileutils-3.13c test release
 10. 1996-12-22 Karl Eichwalder: PO mode abbrev table (supersedes!)
 11. 1996-12-27 Sean Garagan: po-mode question
-12. 1996-12-28 François Pinard: Re: po-mode question
+12. 1996-12-28 FranÃ§ois Pinard: Re: po-mode question
 13. 1997-02-13 Rafal Maszkowski: Re: fileutils-3.15a.pl.po
-14. 1997-08-30 François Pinard: PO mode and Mule
+14. 1997-08-30 FranÃ§ois Pinard: PO mode and Mule
 15. 1997-09-02 Ulrich Drepper: Re: PO mode fuzzy and quit
 16. 1997-10-12 Karl Eichwalder: Re: New po-mode.el to test...
 17. 1997-10-29 Karl Eichwalder: Re: Do not use gettext (was Re: what is gettext
 18. 1998-03-30 Tom Tromey: po-mode changes
-19. 1998-03-30 François Pinard: Re: po-mode changes
+19. 1998-03-30 FranÃ§ois Pinard: Re: po-mode changes
 20. 1998-03-31 Tom Tromey: Re: po-mode changes
-21. 1998-04-07 François Pinard: Re: po-mode fixes
+21. 1998-04-07 FranÃ§ois Pinard: Re: po-mode fixes
 22. 1998-04-08 Hrvoje Niksic: po-mode fixes
 23. 1998-04-08 Hrvoje Niksic: Re: po-mode fixes
 24. 1998-04-08 Hrvoje Niksic: po-mode again
 25. 1998-04-17 Wanderlei Antonio Cavassin: po-mode.el
-26. 1998-05-03 François Pinard: Re: po-mode.el
+26. 1998-05-03 FranÃ§ois Pinard: Re: po-mode.el
 27. 1998-04-17 Wanderlei Antonio Cavassin: po-mode.el
 28. 1997-05-19 Giovanni Bortolozzo: Re: GNU-it PO findutils-4.1
 29. 1998-05-20 Kalle Niemitalo: gettext 0.10.35 po-mode undo
-30. 1998-05-20 François Pinard: Re: gettext 0.10.35 po-mode undo
+30. 1998-05-20 FranÃ§ois Pinard: Re: gettext 0.10.35 po-mode undo
 31. 1998-05-21 Hrvoje Niksic: Re: wget-1.5.2-b1.hr.po
 32. 1997-03-14 Erik Naggum: Re: simple.el mild irregularities
-33. 1998-08-04 François Pinard: Re: Do not use gettext (was Re: what is gettext
-34. 1998-08-06 François Pinard: Re: Emacs 20.2.98 - Adding face modifies buffer
+33. 1998-08-04 FranÃ§ois Pinard: Re: Do not use gettext (was Re: what is gettext
+34. 1998-08-06 FranÃ§ois Pinard: Re: Emacs 20.2.98 - Adding face modifies buffer
 35. 1998-08-07 Richard Stallman: Re: Emacs 20.2.98 - Adding face modifies buffe
 36. 1999-04-28 Karl Eichwalder: Re: translation modes?
 37. 1999-03-27 Sergei Pokrovsky: ispell in po-mode
-38. 1999-10-12 François Pinard: sorite dans gettext.fr.po
+38. 1999-10-12 FranÃ§ois Pinard: sorite dans gettext.fr.po
 
 ../rmail/xpot-announce
- 1. 3900-01-15 François Pinard: xpot version 0.3
- 2. 3900-01-15 François Pinard: xpot version 0.3
- 3. 3900-01-17 François Pinard: Prerelease: Free po-utils 0.4
- 4. 3900-01-17 François Pinard: Prerelease: Free po-utils 0.4
+ 1. 3900-01-15 FranÃ§ois Pinard: xpot version 0.3
+ 2. 3900-01-15 FranÃ§ois Pinard: xpot version 0.3
+ 3. 3900-01-17 FranÃ§ois Pinard: Prerelease: Free po-utils 0.4
+ 4. 3900-01-17 FranÃ§ois Pinard: Prerelease: Free po-utils 0.4
 
 ../rmail/xpot-awk
  1. 1996-01-23 Ulrich Drepper: Re: localizing other languages
@@ -155,45 +155,45 @@
 26. 1996-06-20 Arnold D. Robbins: Re: Proposal: disable dependencies *automatic
 
 ../rmail/xpot-documentation
- 1. 3900-01-16 François Pinard: Re: xpot 0.3
- 2. 3900-01-16 François Pinard: Re: xpot 0.3
- 3. 3900-01-17 François Pinard: po-utils
- 4. 3900-01-17 François Pinard: Re: xpot 0.3
+ 1. 3900-01-16 FranÃ§ois Pinard: Re: xpot 0.3
+ 2. 3900-01-16 FranÃ§ois Pinard: Re: xpot 0.3
+ 3. 3900-01-17 FranÃ§ois Pinard: po-utils
+ 4. 3900-01-17 FranÃ§ois Pinard: Re: xpot 0.3
  5. 3900-01-19 Randall Hopper: Re: Prerelease: Free po-utils 0.4
- 6. 3900-01-22 François Pinard: Re: http://www.iro.umontreal.ca/contrib/libit-0
+ 6. 3900-01-22 FranÃ§ois Pinard: Re: http://www.iro.umontreal.ca/contrib/libit-0
 
 ../rmail/xpot-emacs
- 1. 1996-01-22 François Pinard: Re: Notes on PO mode
- 2. 1996-01-22 François Pinard: Re: Notes on PO mode
+ 1. 1996-01-22 FranÃ§ois Pinard: Re: Notes on PO mode
+ 2. 1996-01-22 FranÃ§ois Pinard: Re: Notes on PO mode
  3. 1996-01-23 Tom Tromey: Re: Notes on PO mode
- 4. 1996-06-23 François Pinard: Re: Modifications to PO mode
- 5. 1996-06-26 François Pinard: Regarding internationalization of Emacs
+ 4. 1996-06-23 FranÃ§ois Pinard: Re: Modifications to PO mode
+ 5. 1996-06-26 FranÃ§ois Pinard: Regarding internationalization of Emacs
  6. 1996-06-26 Richard Stallman: Re: Regarding internationalization of Emacs
  7. 1996-06-26 Richard Stallman: Re: Regarding internationalization of Emacs
  8. 1996-06-29 Richard Stallman: Re: Modifications to PO mode
  9. 1996-06-29 Ulrich Drepper: Re: Modifications to PO mode
 10. 1996-11-11 David Moore: Re: Internationalization
-11. 1996-11-11 François Pinard: Re: Internationalization
+11. 1996-11-11 FranÃ§ois Pinard: Re: Internationalization
 12. 1996-11-12 Ulrich Drepper: Re: Internationalization
 13. 1996-11-12 Ulrich Drepper: Re: Internationalization
-14. 1996-11-12 François Pinard: Re: Internationalization
-15. 1996-11-13 François Pinard: Re: Internationalization
-16. 1996-11-13 François Pinard: Note about DOC strings
-17. 1996-11-13 François Pinard: Re: Internationalization
-18. 1996-11-13 François Pinard: Re: Internationalization
+14. 1996-11-12 FranÃ§ois Pinard: Re: Internationalization
+15. 1996-11-13 FranÃ§ois Pinard: Re: Internationalization
+16. 1996-11-13 FranÃ§ois Pinard: Note about DOC strings
+17. 1996-11-13 FranÃ§ois Pinard: Re: Internationalization
+18. 1996-11-13 FranÃ§ois Pinard: Re: Internationalization
 19. 1996-11-13 Ulrich Drepper: Re: Internationalization
 20. 1996-11-13 Lars Magne Ingebrigtsen: Re: Internationalization
 21. 1996-11-13 Lars Magne Ingebrigtsen: Re: Note about DOC strings
-22. 1996-11-13 François Pinard: Re: Internationalization
+22. 1996-11-13 FranÃ§ois Pinard: Re: Internationalization
 23. 1996-11-13 Lars Magne Ingebrigtsen: Re: Internationalization
 24. 1996-11-13 Lars Magne Ingebrigtsen: Re: Internationalization
 25. 1996-11-13 Lars Magne Ingebrigtsen: Re: Internationalization
 26. 1996-11-14 Ulrich Drepper: Re: Internationalization
-27. 1996-11-14 François Pinard: Reporting on yesterday's work :-)
+27. 1996-11-14 FranÃ§ois Pinard: Reporting on yesterday's work :-)
 28. 1996-11-14 Lars Magne Ingebrigtsen: Re: Internationalization
 29. 1996-11-14 Ulrich Drepper: Re: Internationalization
-30. 1996-11-14 François Pinard: Re: Note about DOC strings
-31. 1996-11-14 François Pinard: Re: Internationalization
+30. 1996-11-14 FranÃ§ois Pinard: Re: Note about DOC strings
+31. 1996-11-14 FranÃ§ois Pinard: Re: Internationalization
 32. 1996-11-14 Ralph Schleicher: Re: Internationalization
 33. 1996-11-15 Lars Magne Ingebrigtsen: Re: Internationalization
 34. 1996-11-15 Lars Magne Ingebrigtsen: Re: Internationalization
@@ -213,12 +213,12 @@
 48. 1996-11-17 Lars Magne Ingebrigtsen: Re: Internationalization
 49. 1996-11-17 Martin Buchholz: Emacs internationalization is confused.
 50. 1996-11-17 Lars Magne Ingebrigtsen: Re: Internationalization
-51. 1996-11-17 François Pinard: Emacs LISP translatable string extraction
+51. 1996-11-17 FranÃ§ois Pinard: Emacs LISP translatable string extraction
 52. 1996-11-17 Ralph Schleicher: Re: Internationalization
 53. 1996-11-18 Lars Magne Ingebrigtsen: Re: Emacs internationalization is confu
 54. 1996-11-19 Martin Buchholz: Re: Emacs internationalization is confused.
-55. 1996-11-22 François Pinard: Traduction de Emacs
-56. 1996-11-23 François Pinard: Following up on internationalisation?
+55. 1996-11-22 FranÃ§ois Pinard: Traduction de Emacs
+56. 1996-11-23 FranÃ§ois Pinard: Following up on internationalisation?
 57. 1996-11-23 Lars Magne Ingebrigtsen: Re: Following up on internationalisatio
 58. 1996-11-25 Lars Magne Ingebrigtsen: Re: [Richard Stallman <rms@nuclecu.unam
 59. 1996-11-27 Martin Buchholz: Tm + XEmacs + GNU documentation
@@ -227,18 +227,18 @@
 62. 1997-01-25 Lars Magne Ingebrigtsen: Re: "gettext" internationalization supp
 63. 1997-01-28 Lars Magne Ingebrigtsen: [Lars Magne Ingebrigtsen <larsi@ifi.uio
 64. 1997-02-03 Lars Magne Ingebrigtsen: Re: Aliases with nnmail?
-65. 1997-08-03 François Pinard: Emacs 20 and gettext
-66. 1997-09-09 François Pinard: Emacs internationalisation [was: Re: \201's in
+65. 1997-08-03 FranÃ§ois Pinard: Emacs 20 and gettext
+66. 1997-09-09 FranÃ§ois Pinard: Emacs internationalisation [was: Re: \201's in
 67. 1997-09-09 Richard Stallman: Re: Emacs internationalisation [was: Re: \201'
-68. 1997-09-10 François Pinard: Re: Emacs internationalisation [was: Re: \201's
+68. 1997-09-10 FranÃ§ois Pinard: Re: Emacs internationalisation [was: Re: \201's
 69. 1997-09-10 Richard Stallman: Re: Emacs internationalisation [was: Re: \201'
 70. 1997-09-11 Thorbjoern Ravn Andersen: Re: Perl and gettext [Re: how to trans
-71. 1997-09-25 François Pinard: Re: Recode library
-72. 1997-10-20 François Pinard: Re: Proposed change to 20.3/20.4 distribution t
-73. 1997-10-20 François Pinard: Re: Proposed change to 20.3/20.4 distribution t
-74. 1997-11-08 François Pinard: Re: gettext
+71. 1997-09-25 FranÃ§ois Pinard: Re: Recode library
+72. 1997-10-20 FranÃ§ois Pinard: Re: Proposed change to 20.3/20.4 distribution t
+73. 1997-10-20 FranÃ§ois Pinard: Re: Proposed change to 20.3/20.4 distribution t
+74. 1997-11-08 FranÃ§ois Pinard: Re: gettext
 75. 1997-11-08 Hrvoje Niksic: gettext
-76. 1997-11-09 François Pinard: Re: gettext
+76. 1997-11-09 FranÃ§ois Pinard: Re: gettext
 77. 1999-02-10 Steve Swales: Localization of emacs... in 20.4?
 78. 1999-05-17 Hrvoje Niksic: [m17n99:140] Re: papers for proceedings
 79. 1999-09-16 Dale Gulledge: We seem to have two parallel efforts to internati
@@ -247,63 +247,63 @@
 
 ../rmail/xpot-java
  1. 1999-03-29 rpj333@my-dejanews.com: non English speaker of my Java program
- 2. 1999-08-02 François Pinard: Re: Your last address does not seem valid
+ 2. 1999-08-02 FranÃ§ois Pinard: Re: Your last address does not seem valid
  3. 1999-08-06 Thorbjoern Ravn Andersen: Re: Your last address does not seem va
 
 ../rmail/xpot-perl
- 1. 1995-05-14 François Pinard: Re: GNU locale: experiment evaluation, and sugg
+ 1. 1995-05-14 FranÃ§ois Pinard: Re: GNU locale: experiment evaluation, and sugg
  2. 1994-12-02 Francois Pinard: GNU locale: experiment evaluation, and suggesti
  3. 1994-12-05 Richard Stallman: Re: New problems and suggestions for GNU local
  4. 1995-05-11 The daemon process owner: Defunct user [Re: Internationalizing m
  5. 1995-05-11 The daemon process owner: Defunct user [Re: Internationalizing m
- 6. 1995-05-11 François Pinard: Internationalizing messages Perl scripts
- 7. 1995-05-11 François Pinard: Internationalizing messages Perl scripts
- 8. 1995-05-11 François Pinard: Internationalizing messages Perl scripts (bis)
+ 6. 1995-05-11 FranÃ§ois Pinard: Internationalizing messages Perl scripts
+ 7. 1995-05-11 FranÃ§ois Pinard: Internationalizing messages Perl scripts
+ 8. 1995-05-11 FranÃ§ois Pinard: Internationalizing messages Perl scripts (bis)
  9. 1995-05-11 Mail Delivery Subsystem: Returned mail: User unknown
 10. 1995-05-11 Mail Delivery Subsystem: Returned mail: User unknown
-11. 1995-05-19 François Pinard: Perl interface to GNU gettext
+11. 1995-05-19 FranÃ§ois Pinard: Perl interface to GNU gettext
 12. 1995-05-23 Ulrich Drepper: Re: Perl tries
-13. 1995-05-19 François Pinard: Perl tries
-14. 1995-07-12 François Pinard: libgettext.perl
-15. 1995-07-15 François Pinard: gettext and Perl
+13. 1995-05-19 FranÃ§ois Pinard: Perl tries
+14. 1995-07-12 FranÃ§ois Pinard: libgettext.perl
+15. 1995-07-15 FranÃ§ois Pinard: gettext and Perl
 16. 1995-08-07 Ulrich Drepper: Re: yesterdays work
 17. 1995-07-30 David Lebel: xgettext pour perl5
-18. 1996-01-02 François Pinard: Re: Sed 3.0
-19. 1996-01-03 François Pinard: Re: Sed 3.0 (but not really anymore... :-)
-20. 1996-01-02 François Pinard: Re: Sed 3.0 (but not really anymore... :-)
+18. 1996-01-02 FranÃ§ois Pinard: Re: Sed 3.0
+19. 1996-01-03 FranÃ§ois Pinard: Re: Sed 3.0 (but not really anymore... :-)
+20. 1996-01-02 FranÃ§ois Pinard: Re: Sed 3.0 (but not really anymore... :-)
 21. 1996-01-02 Tom Christiansen: Re: Sed 3.0 (but not really anymore... :-)
-22. 1996-01-04 François Pinard: Re: 8bit clean perl? (fwd)
-23. 1996-01-05 François Pinard: Re: 8bit clean perl? (fwd)
-24. 1996-01-05 François Pinard: Re: 8bit clean perl? (fwd)
+22. 1996-01-04 FranÃ§ois Pinard: Re: 8bit clean perl? (fwd)
+23. 1996-01-05 FranÃ§ois Pinard: Re: 8bit clean perl? (fwd)
+24. 1996-01-05 FranÃ§ois Pinard: Re: 8bit clean perl? (fwd)
 25. 1996-01-06 Kenneth Albanowski: Re: 8bit clean perl? (fwd)
-26. 1996-01-05 François Pinard: Re: 8bit clean perl? (fwd)
+26. 1996-01-05 FranÃ§ois Pinard: Re: 8bit clean perl? (fwd)
 27. 1996-01-05 Ilya Zakharevich: Re: 8bit clean perl? (fwd)
 28. 1996-01-05 Kenneth Albanowski: Re: 8bit clean perl? (fwd)
-29. 1996-01-05 François Pinard: Re: 8bit clean perl? (fwd)
+29. 1996-01-05 FranÃ§ois Pinard: Re: 8bit clean perl? (fwd)
 30. 1996-01-05 Tom Christiansen: Re: 8bit clean perl? (fwd)
 31. 1996-01-05 Kenneth Albanowski: Re: 8bit clean perl? (fwd)
 32. 1996-02-11 Ulrich Drepper: In Boston...
 33. 1995-12-16 Ulrich Drepper: Re: gettextize
 34. 1996-03-12 Ulrich Drepper: Re: xgettext and #define's
-35. 1995-11-23 François Pinard: Re: gettext and shell scripts
+35. 1995-11-23 FranÃ§ois Pinard: Re: gettext and shell scripts
 36. 1996-03-26 Tom Tromey: Re: Suggestion for Perl scripts
 37. 1996-03-26 Noah Friedman: Suggestion for Perl scripts
-38. 1996-04-09 François Pinard: Re: automake is great
+38. 1996-04-09 FranÃ§ois Pinard: Re: automake is great
 39. 1996-04-09 Ulrich Drepper: Re: [seindal@webadm.kb.dk: automake is great]
-40. 1997-09-09 François Pinard: Perl and gettext [Re: how to translate large do
+40. 1997-09-09 FranÃ§ois Pinard: Perl and gettext [Re: how to translate large do
 41. 1997-09-09 Tom Christiansen: Automatic mail from tchrist [Re: Perl and gett
 42. 1997-09-09 The Answering Machine: [answering machine message, most recently
-43. 1998-02-19 François Pinard: Re: UNIX man page for GNU tar
+43. 1998-02-19 FranÃ§ois Pinard: Re: UNIX man page for GNU tar
 44. 1997-09-11 Thorbjoern Ravn Andersen: Re: Perl and gettext [Re: how to trans
 45. 1998-11-11 Brendan O'Dea: Re: New version of help2man with NLS support avai
 
 ../rmail/xpot-python
  1. 1999-08-19 sz@zmail.ru: Python's Russian Pages
- 2. 1999-08-26 François Pinard: Python - internationalisation questions
+ 2. 1999-08-26 FranÃ§ois Pinard: Python - internationalisation questions
  3. 1999-08-26 Guido van Rossum: Re: Python - internationalisation questions
  4. 1999-09-06 Fredrik Lundh: Re: Localizing strings?
- 5. 1999-09-16 François Pinard: Marking translatable strings
- 6. 1999-09-16 François Pinard: Marking translatable strings
+ 5. 1999-09-16 FranÃ§ois Pinard: Marking translatable strings
+ 6. 1999-09-16 FranÃ§ois Pinard: Marking translatable strings
  7. 1999-09-16 Emile van Sebille: Re: Marking translatable strings
  8. 1999-09-16 Robin Becker: Re: Marking translatable strings
  9. 1999-09-16 Skip Montanaro: Re: Marking translatable strings
@@ -314,12 +314,12 @@
 14. 1999-09-16 Barry A. Warsaw: Re: Marking translatable strings
 15. 1999-09-17 Tim Peters: RE: Marking translatable strings
 16. 1999-09-17 Barry A. Warsaw: Re: Marking translatable strings
-17. 1999-09-17 François Pinard: Re: Marking translatable strings
-18. 1999-09-18 François Pinard: Re: Marking translatable strings
-19. 1999-09-19 François Pinard: Re: Marking translatable strings
-20. 1999-09-19 François Pinard: Re: Marking translatable strings
-21. 1999-09-19 François Pinard: Re: Marking translatable strings
-22. 1999-09-19 François Pinard: Re: Marking translatable strings
+17. 1999-09-17 FranÃ§ois Pinard: Re: Marking translatable strings
+18. 1999-09-18 FranÃ§ois Pinard: Re: Marking translatable strings
+19. 1999-09-19 FranÃ§ois Pinard: Re: Marking translatable strings
+20. 1999-09-19 FranÃ§ois Pinard: Re: Marking translatable strings
+21. 1999-09-19 FranÃ§ois Pinard: Re: Marking translatable strings
+22. 1999-09-19 FranÃ§ois Pinard: Re: Marking translatable strings
 23. 1999-09-19 Tim Peters: RE: Marking translatable strings
 24. 1999-09-20 Barry A. Warsaw: Re: Marking translatable strings
 25. 1999-09-20 Barry A. Warsaw: Re: Marking translatable strings
@@ -335,10 +335,10 @@
 35. 1999-09-22 Christian Egli: Re: Marking translatable strings
 36. 1999-09-22 Darrell: Re: Marking translatable strings
 37. 1999-09-29 Greg Ewing: Re: Marking translatable strings
-38. 1999-09-28 François Pinard: Re: Marking translatable strings
+38. 1999-09-28 FranÃ§ois Pinard: Re: Marking translatable strings
 39. 1999-09-29 Bernhard Herzog: Re: Marking translatable strings
-40. 1999-10-08 François Pinard: Re: Marking translatable strings
-41. 1999-10-08 François Pinard: Re: Marking translatable strings
+40. 1999-10-08 FranÃ§ois Pinard: Re: Marking translatable strings
+41. 1999-10-08 FranÃ§ois Pinard: Re: Marking translatable strings
 42. 1999-10-09 Florian Weimer: Re: Marking translatable strings
 43. 1999-10-09 Fredrik Lundh: Re: Marking translatable strings
 44. 1999-10-09 Bernhard Herzog: Re: Marking translatable strings
@@ -349,34 +349,34 @@
 49. 1999-10-11 Barry A. Warsaw: Re: Marking translatable strings
 50. 1999-10-12 Bernhard Herzog: Re: Marking translatable strings
 51. 1999-11-02 Boudewijn Rempt: pygettext
-52. 3900-01-12 François Pinard: Thanks for `intl'
+52. 3900-01-12 FranÃ§ois Pinard: Thanks for `intl'
 53. 3900-01-12 Martin von Loewis: Re: Thanks for `intl'
-54. 3900-01-15 François Pinard: Re: International Python
+54. 3900-01-15 FranÃ§ois Pinard: Re: International Python
 55. 3900-01-17 Peter Funk: fintl.py -- a python module to aid i18n (was Re: Int
-56. 3900-01-17 François Pinard: Re: Proposal: i-String literals in Future Versi
+56. 3900-01-17 FranÃ§ois Pinard: Re: Proposal: i-String literals in Future Versi
 57. 3900-01-17 Peter Funk: fintl.py -- a python module to aid i18n (was Re: Int
 
 ../rmail/xpot-shell
- 1. 1995-08-17 François Pinard: -s for --shell-script
+ 1. 1995-08-17 FranÃ§ois Pinard: -s for --shell-script
  2. 1995-11-25 Ulrich Drepper: Re: gettext and shell scripts
  3. 1995-11-24 Tom Tromey: Re: gettext and shell scripts
- 4. 1996-03-24 François Pinard: Re: Details about gettextize
+ 4. 1996-03-24 FranÃ§ois Pinard: Re: Details about gettextize
  5. 1996-04-29 Jim Meyering: Re: sh-utils and gettext for scripts
- 6. 1996-08-27 François Pinard: Re: bash-2.0
+ 6. 1996-08-27 FranÃ§ois Pinard: Re: bash-2.0
  7. 1996-08-28 Ulrich Drepper: bash-2.0
  8. 1996-08-31 Ulrich Drepper: (none)
  9. 1996-11-12 Ulrich Drepper: Re: Internationalization
 10. 1994-12-02 Paul Eggert: GNU locale and shell commands
-11. 1995-05-19 François Pinard: Idea for gettext in shell scripts
+11. 1995-05-19 FranÃ§ois Pinard: Idea for gettext in shell scripts
 12. 1995-08-18 Ulrich Drepper: Re: and another goodie
 
 ../rmail/xpot-shell-scripts
- 1. 1995-08-17 François Pinard: -s for --shell-script
+ 1. 1995-08-17 FranÃ§ois Pinard: -s for --shell-script
  2. 1995-11-24 Tom Tromey: Re: gettext and shell scripts
  3. 1995-11-25 Ulrich Drepper: Re: gettext and shell scripts
- 4. 1996-03-24 François Pinard: Re: Details about gettextize
+ 4. 1996-03-24 FranÃ§ois Pinard: Re: Details about gettextize
  5. 1996-04-29 Jim Meyering: Re: sh-utils and gettext for scripts
  6. 1996-08-28 Ulrich Drepper: bash-2.0
- 7. 1996-08-27 François Pinard: Re: bash-2.0
+ 7. 1996-08-27 FranÃ§ois Pinard: Re: bash-2.0
  8. 1996-08-31 Ulrich Drepper: (none)
  9. 1997-07-09 Ulrich Drepper: shell script message translation

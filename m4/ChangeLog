@@ -1,0 +1,5 @@
+2000-09-01  François Pinard  <pinard@iro.umontreal.ca>
+
+	* check-decl.m4: New file, from elsewhere.
+	* Makefile.am (EXTRA_DIST): Adjusted.
+
