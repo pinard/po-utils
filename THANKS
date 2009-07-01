@@ -1,0 +1,31 @@
+These free PO utilities have originally been written by François Pinard.
+Other people contributed to PO utilities by reporting problems, suggesting
+various improvements or submitting actual code.  Here is a list of these
+people.  Help me keeping it complete and exempt of errors.  See various
+ChangeLogs for a detailed description of contributions.
+
+Andreas Schwab		schwab@suse.de
+Bernhard Herzog		bernhard@users.sourceforge.net
+			http://www.advogato.org/person/bernhard/
+Bill Perry		wmperry@aventail.com
+Bruno Haible		haible@ilog.fr
+Enrique Melero Gómez	justine@iprolink.ch
+François Pinard		pinard@iro.umontreal.ca
+			http://www.iro.umontreal.ca/~pinard
+Greg McGary		gkm@cstone.net
+Göran Uddeborg		gvran@uddeborg.pp.se
+Hrvoje Niksic		hniksic@srce.hr
+Jim Meyering		meyering@na-net.ornl.gov
+Kalle Niemitalo		tosi@ees2.oulu.fi
+Karl Eichwalder		ke@suse.de
+Ken'ichi Handa		handa@etl.go.jp
+Laurent Bourbeau	bourbeau@progiciels-bpi.ca
+Marcus Daniels		marcus@sysc.pdx.edu
+Marin Purgar		pmc@asgard.hr
+Max de Mendizabal	max@acer.com.mx
+Michel Robitaille	robitail@IRO.UMontreal.CA
+Nils Naumann		naumann@unileoben.ac.at
+Rodrigo Stulzer Lopes	rodrigo@conectiva.com.br
+Santiago Vila Doncel	sanvila@unex.es
+Tom Tromey		tromey@cygnus.com
+Ulrich Drepper		drepper@gnu.org

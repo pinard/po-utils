@@ -1,37 +1,60 @@
-* README file for `xpot'			allout -*- outline -*-
+* README file for `po-utils'			allout -*- outline -*-
 
-  Things are improving in the area of Python internationalisation! :-) After
-  having made PO mode able to mark strings for translation in a collection
-  of Python sources, I finally got `xpot' to extract those strings into a
-  neater POT file.  I'm grateful to Barry Warsaw for his `pygettext' tool,
-  which has been useful to cross-check the results of 'xpot' and debug it.
+  PO utilities is meant to become a collection of tools for handling PO
+  files.  Until there is a real Texinfo manual for it, the documentation is
+  kept in this `README'.
 
-  `xpot' uses the same principles that guided PO mode scanning for Python.
-  Adjacent strings (those only separated by whitespace or comments) are
-  correctly concatenated at extraction time.  Strings are considered
-  translatable if they are used within _(STRING) or gettext(STRING)
-  constructs, other keywords may be added, of course.  Also, to palliate
-  the lack of a pre-processor, strings which translation should be delayed
-  may be marked as translatable by using one of ''"text", ''r"text",
-  ""'text' or ""r'text'.  I might address ''"""text""" and ""'''text'''
-  as well if deemed useful.
+.* PO mode
 
-  One option to `xpot' allows for automatic extraction of all doc strings,
-  which never need explicit marking for this reason.  I think I got it
-  right: doc strings should be correctly found even after very complex
-  initialisation of keyword parameters.  I do not expect this to be common
-  use, but this might be useful in highly interactive programs giving access
-  to Python internal code, a bit like Emacs already does for its own LISP.
+   File `po-mode.el' implements a set of Emacs editing functions for PO
+   files.  The main documentation is currently part of the manual which
+   comes in the `gettext' distribution.
 
-  `xpot' is also able to extract translatable strings from Emacs LISP files,
-  as well as from other pre-existing PO files.  To find out the language, it
-  looks for hints in file name, in `#!PATH/env PROGRAM', `#!PATH/PROGRAM',
-  `-*-mode:MODE-*-' or `-*-MODE-*-' in the first two lines.  I did not
-  recheck Emacs LISP or PO recently, but found out on the whole Emacs,
-  that `xpot' fails on raw-Mule files.  My plan is to complete `xpot'
-  so it can also handle C/C++ (`xgettext' makes this one less urgent),
-  and later `awk', Perl and `bash', or in fact, anything that could help
-  internationalisation! :-)
+.* xpot
 
-  `xpot' is itself written in C, Flex and Bison, and I would expect it to
-  be rather fast even for big projects.  This is an alpha version.
+. + Introduction
+
+    This tool produces a PO template file on standard output, given a
+    collection of source files.  It currently handles C, C++, Emacs LISP,
+    and Python sources, as well as from pre-existing PO files.  It is meant
+    to handle Awk, Perl or shell scripts, when everything will be ready
+    for these.  And in fact, anything that could help internationalisation.
+
+    To find out the language of a program, `xpot' looks for hints in the
+    extension of the file name, or else, in the contents of the first two
+    lines of the file, looking for `#!PATH/env PROGRAM', `#!PATH/PROGRAM',
+    `-*-mode:MODE-*-' or `-*-MODE-*-' in the first two lines.
+
+    `xpot' is itself written in C, Flex and Bison, and I would expect it to
+    be rather fast even for big projects.  This is an alpha version.
+
+. + Options
+
+    One option to `xpot' allows for automatic extraction of all doc strings,
+    which never need explicit marking in either Emacs LISP or Python,
+    for this reason.  Translation of doc string might be useful in highly
+    interactive programs, giving access to interpreter facilities.
+
+. + Emacs LISP
+
+    Mule files, when a character uses many bytes, may not be analysed
+    correctly.
+
+. + Python
+
+    Adjacent strings (those only separated by whitespace or comments) are
+    correctly concatenated at extraction time.  Strings are considered
+    translatable if they are used within _(STRING) or gettext(STRING)
+    constructs, other keywords may be added, of course.
+
+    To palliate the lack of a pre-processor, strings which translation
+    should be delayed may be marked as translatable by using one of the
+    following special constructs, which are already valid Python:
+
+       ''"text"        ''r"text"
+       ""'text'        ""r'text'
+       ''"""text"""    ''r"""text"""
+       ""'''text'''    ""r'''text'''
+
+    Doc strings, if their extraction has been selected, should be correctly
+    found even after very complex initialisation of keyword parameters.

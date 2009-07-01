@@ -58,6 +58,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 CC = @CC@
+EMACS = @EMACS@
 LEX = @LEX@
 LIBOBJS = @LIBOBJS@
 MAKEINFO = @MAKEINFO@
@@ -65,18 +66,21 @@ PACKAGE = @PACKAGE@
 RANLIB = @RANLIB@
 VERSION = @VERSION@
 YACC = @YACC@
+lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = gnits
 
 bin_PROGRAMS = xpot
-
 noinst_HEADERS = parser.h xpot.h
-xpot_SOURCES = parser.y scanner.l xpot.c
+lisp_LISP = po-mode.el
 
-INCLUDES = -I.. -I$(srcdir) -I$(top_srcdir)/lib
+EXTRA_DIST = po-mode.el
+
+xpot_SOURCES = parser.y scanner.l xpot.c
 xpot_LDADD = @LEXLIB@ ../lib/libxpot.a
 
 CPPFLAGS = -DYYDEBUG
+INCLUDES = -I.. -I$(srcdir) -I$(top_srcdir)/lib
 LFLAGS = -8pd
 YFLAGS = -dtv
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -97,9 +101,13 @@ CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+LISP =  $(lisp_LISP)
+
+ELCFILES =  po-mode.elc
 HEADERS =  $(noinst_HEADERS)
 
-DIST_COMMON =  Makefile.am Makefile.in parser.c scanner.c
+DIST_COMMON =  ChangeLog Makefile.am Makefile.in elisp-comp parser.c \
+scanner.c
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -111,7 +119,7 @@ OBJECTS = $(xpot_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
-.SUFFIXES: .S .c .l .o .s .y
+.SUFFIXES: .S .c .el .elc .l .o .s .y
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps src/Makefile
 
@@ -177,6 +185,39 @@ xpot: $(xpot_OBJECTS) $(xpot_DEPENDENCIES)
 parser.h: parser.c
 
 
+install-lispLISP: $(lisp_LISP) $(ELCFILES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(lispdir)
+	@list='$(lisp_LISP)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
+	  if test -f $${p}c; then \
+	    echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
+	    $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
+	  else : ; fi; \
+	done
+
+uninstall-lispLISP:
+	@$(NORMAL_UNINSTALL)
+	list='$(lisp_LISP)'; for p in $$list; do \
+	  rm -f $(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
+	done
+.el.elc:
+	@echo 'WARNING: Warnings can be ignored. :-)'
+	if test $(EMACS) != no; then \
+	  EMACS=$(EMACS) $(SHELL) $(srcdir)/elisp-comp $<; \
+	fi
+
+mostlyclean-lisp:
+
+clean-lisp:
+	-test -z "$(ELCFILES)" || rm -f $(ELCFILES)
+
+distclean-lisp:
+
+maintainer-clean-lisp:
+
 tags: TAGS
 
 ID: $(HEADERS) $(SOURCES) $(LISP)
@@ -239,20 +280,20 @@ installcheck: installcheck-am
 install-exec-am: install-binPROGRAMS
 install-exec: install-exec-am
 
-install-data-am:
+install-data-am: install-lispLISP
 install-data: install-data-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 install: install-am
-uninstall-am: uninstall-binPROGRAMS
+uninstall-am: uninstall-binPROGRAMS uninstall-lispLISP
 uninstall: uninstall-am
-all-am: Makefile $(PROGRAMS) $(HEADERS)
+all-am: Makefile $(PROGRAMS) $(LISP) $(ELCFILES) $(HEADERS)
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
-	$(mkinstalldirs)  $(DESTDIR)$(bindir)
+	$(mkinstalldirs)  $(DESTDIR)$(bindir) $(DESTDIR)$(lispdir)
 
 
 mostlyclean-generic:
@@ -266,23 +307,24 @@ distclean-generic:
 maintainer-clean-generic:
 	-test -z "scannerlparserhparserc" || rm -f scannerl parserh parserc
 mostlyclean-am:  mostlyclean-binPROGRAMS mostlyclean-compile \
-		mostlyclean-tags mostlyclean-generic
+		mostlyclean-lisp mostlyclean-tags mostlyclean-generic
 
 mostlyclean: mostlyclean-am
 
-clean-am:  clean-binPROGRAMS clean-compile clean-tags clean-generic \
-		mostlyclean-am
+clean-am:  clean-binPROGRAMS clean-compile clean-lisp clean-tags \
+		clean-generic mostlyclean-am
 
 clean: clean-am
 
-distclean-am:  distclean-binPROGRAMS distclean-compile distclean-tags \
-		distclean-generic clean-am
+distclean-am:  distclean-binPROGRAMS distclean-compile distclean-lisp \
+		distclean-tags distclean-generic clean-am
 
 distclean: distclean-am
 
 maintainer-clean-am:  maintainer-clean-binPROGRAMS \
-		maintainer-clean-compile maintainer-clean-tags \
-		maintainer-clean-generic distclean-am
+		maintainer-clean-compile maintainer-clean-lisp \
+		maintainer-clean-tags maintainer-clean-generic \
+		distclean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
 
@@ -291,14 +333,24 @@ maintainer-clean: maintainer-clean-am
 .PHONY: mostlyclean-binPROGRAMS distclean-binPROGRAMS clean-binPROGRAMS \
 maintainer-clean-binPROGRAMS uninstall-binPROGRAMS install-binPROGRAMS \
 mostlyclean-compile distclean-compile clean-compile \
-maintainer-clean-compile tags mostlyclean-tags distclean-tags \
-clean-tags maintainer-clean-tags distdir info-am info dvi-am dvi check \
-check-am installcheck-am installcheck install-exec-am install-exec \
-install-data-am install-data install-am install uninstall-am uninstall \
-all-redirect all-am all installdirs mostlyclean-generic \
-distclean-generic clean-generic maintainer-clean-generic clean \
-mostlyclean distclean maintainer-clean
+maintainer-clean-compile uninstall-lispLISP install-lispLISP \
+mostlyclean-lisp distclean-lisp clean-lisp maintainer-clean-lisp tags \
+mostlyclean-tags distclean-tags clean-tags maintainer-clean-tags \
+distdir info-am info dvi-am dvi check check-am installcheck-am \
+installcheck install-exec-am install-exec install-data-am install-data \
+install-am install uninstall-am uninstall all-redirect all-am all \
+installdirs mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
+
+essai-elisp: xpot
+#	 xpot=`pwd`/xpot \
+#	   && (cd $(HOME)/po/po-mode && $$xpot po-mode.el) > po-mode.pot
+#	 xpot=`pwd`/xpot \
+#	   && (cd $(EMACSDIR)/lisp/international && find -name '*.el' | xargs $$xpot -d) \
+#	     > emacs.pot
+	find $(EMACSDIR)/lisp/international -name '*.el' | xargs ./xpot -d \
+	  > emacs.pot
 
 essai-python: xpot
 	./xpot -ly using.py

@@ -52,7 +52,7 @@ static int prepare_for_return (int, int, int);
   return prepare_for_return ((Token), (Start), PYTHON_STARTER)
 
 /* Comments and strings.  */
-static void grow_comment (char *, size_t);
+static void grow_comment (char *, size_t, char);
 static void begin_string (bool, int);
 static void grow_string (char *, size_t);
 static void grow_string_with_character (char);
@@ -61,13 +61,13 @@ static void grow_string_with_hexadecimal (const char *);
 
 /* Miscellaneous.  */
 static void try_setting_language (const char *, size_t);
-static void unexpected_character (void);
+static void unexpected_character (const char *);
 %}
 
 %option noyywrap
 
 %x STATE_AWK
-%x STATE_C STATE_C_COMMENT STATE_C_STRING
+%x STATE_C STATE_C_PREPROCESSOR STATE_C_COMMENT STATE_C_STRING
 %x STATE_ELISP STATE_ELISP_CHARACTER STATE_ELISP_STRING
 %x STATE_PERL
 %x STATE_PO STATE_PO_STRING
@@ -86,7 +86,6 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 %%
 
 <<EOF>>			{
-  starter_sent = true;
   return prepare_for_return (0, YY_START, 0);
 }
 
@@ -140,60 +139,87 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 
   {white}+
   \n{white}*		current_line_number++;
-  {identifier} {
+  \/\/.*\n		{
+    /* C++ comment.  */
+    grow_comment (yytext, yyleng, '/');
+    current_line_number++;
+  }
+  \/\/.*		grow_comment (yytext, yyleng, '/');
+  {identifier}{white}*\(  {
     /* Identifier.  */
     C_RETURN (C_IDENTIFIER, YY_START);
   }
-  -?[0-9]+		{
-    /* Number.  */
-    C_RETURN (C_NUMBER, YY_START);
+  {identifier}		|
+  [0-9]+		|
+  \'\\.\'		|
+  \'.\'			|
+  [!%&+,-./:<=>?^|~;]+	|
+  \*  			{
+    C_RETURN (C_OTHER, YY_START);
   }
   [()\[\]\{\}]		{
     /* Bracketing delimiter.  */
     C_RETURN (yytext[0], YY_START);
   }
+  \#			BEGIN STATE_C_PREPROCESSOR;
   \/\*			BEGIN STATE_C_COMMENT;
-  \"			BEGIN STATE_C_STRING;
+  \"			begin_string (false, STATE_C_STRING);
 
-  .			unexpected_character ();
+  .			unexpected_character ("C source");
+}
+
+<STATE_C_PREPROCESSOR>{		/* C - preprocessor directive */
+  .*\\\n		current_line_number++;
+  .*			BEGIN STATE_C;
 }
 
 <STATE_C_COMMENT>{		/* C - comment */
 
-  \*\/			BEGIN STATE_C;
-  \n[^*\n]*		current_line_number++;
-  [^*\n]*
-  \*
-
-  .			unexpected_character ();
+  {white}*\*\/		BEGIN STATE_C;
+  \n			{
+    current_line_number++;
+    grow_comment (yytext, yyleng, '\0');
+  }
+  \*			|
+  [^*\n]+		grow_comment (yytext, yyleng, '\0');
 }
 
 <STATE_C_STRING>{		/* C - string */
 
   \"			BEGIN STATE_C;
   \\\n			current_line_number++;
-  \\.
-  \n[^\"\\\n]*		current_line_number++;
-  [^\"\\\n]+
+  \\[0-7]{1,3}		grow_string_with_octal (yytext + 1);
+  \\x[0-9a-fA-F]{1,2}	grow_string_with_hexadecimal (yytext + 2);
+  \\a			grow_string_with_character ('\007');
+  \\b			grow_string_with_character ('\b');
+  \\d			grow_string_with_character (127);
+  \\e			grow_string_with_character (27);
+  \\f			grow_string_with_character ('\f');
+  \\n			grow_string_with_character ('\n');
+  \\r			grow_string_with_character ('\r');
+  \\t			grow_string_with_character ('\t');
+  \\v			grow_string_with_character ('\v');
+  \\\\			grow_string_with_character ('\\');
+  \\\"			grow_string_with_character ('"');
+  \\.			unexpected_character ("C string escape");
+  \n			{
+    grow_string_with_character ('\n');
+    current_line_number++;
+  }
+  [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("C string");
 }
 
 <STATE_ELISP>{			/* Emacs LISP language */
 				/* FIXME: Broken by MULE files!  */
   {white}+
   \n{white}*		current_line_number++;
-  \;.*			{
-    char *cursor = yytext;
-    size_t length = yyleng;
-
-    while (length > 0 && *cursor == ';')
-      {
-	length--;
-	cursor++;
-      }
-    grow_comment (cursor, length);
+  \;.*\n		{
+    grow_comment (yytext, yyleng, ';');
+    current_line_number++;
   }
+  \;.*			grow_comment (yytext, yyleng, ';');
 
   [(.)\[\]\']		ELISP_RETURN (yytext[0], YY_START);
 
@@ -261,7 +287,7 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 
   \006			/* Only once in progmodes/cperl-mode.el.  */
 
-  .			unexpected_character ();
+  .			unexpected_character ("Emacs LISP source");
 }
 
 <STATE_ELISP_CHARACTER>{	/* Emacs LISP - single character */
@@ -275,19 +301,16 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
     /* Single character.  */
     ELISP_RETURN (ELISP_OTHER_ATOM, STATE_ELISP);
   }
-
   \n			{
     /* Occurs only once in textmodes/texinfmt.el.  */
     current_line_number++;
     ELISP_RETURN (ELISP_OTHER_ATOM, STATE_ELISP);
   }
-
-  .			unexpected_character ();
 }
 
 <STATE_ELISP_STRING>{		/* Emacs LISP - string of characters */
 
-  \"			ELISP_RETURN (ELISP_OTHER_ATOM, STATE_ELISP);
+  \"			BEGIN STATE_ELISP;
   \\\n			current_line_number++;
   \\(\^|C-)		control_flag = true;
   \\M-			meta_flag = true;
@@ -320,7 +343,7 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
       grow_string (yytext, yyleng);
   }
 
-  .			unexpected_character ();
+  .			unexpected_character ("Emacs LISP string");
 }
 
 <STATE_PO>{			/* Portable Object (PO) file */
@@ -330,7 +353,7 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   {white}+
   \n{white}+		current_line_number++;
   \#{white}*
-  \#\..*		grow_comment (yytext + 2, yyleng - 2);
+  \#\..*		grow_comment (yytext + 2, yyleng - 2, '\0');
   ^msgid{white}+	PO_RETURN (PO_MSGID, YY_START);
   ^msgstr{white}+	PO_RETURN (PO_MSGSTR, YY_START);
   \"			begin_string (false, BEGIN STATE_PO_STRING);
@@ -348,11 +371,11 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \\v			grow_string_with_character ('\v');
   \\\\			grow_string_with_character ('\\');
   \\\"			grow_string_with_character ('"');
-  \\.			unexpected_character ();
-  \n			unexpected_character ();
+  \\.			unexpected_character ("PO string escape");
+  \n			unexpected_character ("PO string line");
   [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("PO string");
 }
 
 <STATE_PYTHON>{			/* Python language */
@@ -360,18 +383,12 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   {white}+
   \n{white}*		current_line_number++;
   \\\n{white}*		current_line_number++;
-  \#.*			{
-    char *cursor = yytext;
-    size_t length = yyleng;
-
-    while (length > 0 && *cursor == '#')
-      {
-	length--;
-	cursor++;
-      }
-    grow_comment (cursor, length);
+  \#.*\n			{
+    grow_comment (yytext, yyleng, '#');
+    current_line_number++;
   }
-  {identifier}/{white}*\(  {
+  \#.*			grow_comment (yytext, yyleng, '#');
+  {identifier}{white}*\(  {
     PYTHON_RETURN (PYTHON_IDENTIFIER, YY_START);
   }
   (class|def){white}+{identifier}  {
@@ -385,47 +402,59 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
     PYTHON_RETURN (PYTHON_OTHER, YY_START);
   }
 
-  \'			{
+  \'			{	/* 1 */
     begin_string (false, STATE_PYTHON_SINGLE_STRING);
   }
-  [rR]\'		{
+  [rR]\'		{	/* 1r */
     begin_string (false, STATE_PYTHON_SINGLE_STRING_RAW);
   }
-  \"			{
+  \"			{	/* 2 */
     begin_string (false, STATE_PYTHON_DOUBLE_STRING);
   }
-  [rR]\"		{
+  [rR]\"		{	/* 2r */
     begin_string (false, STATE_PYTHON_DOUBLE_STRING_RAW);
   }
-  \'\'\'		{
+  \'\'\'		{	/* 3 */
     begin_string (false, STATE_PYTHON_TRIPLE_STRING);
   }
-  [rR]\'\'\'		{
+  [rR]\'\'\'		{	/* 3r */
     begin_string (false, STATE_PYTHON_TRIPLE_STRING_RAW);
   }
-  \'\'\"		{
+  \'\'\"		{	/* 4 */
     begin_string (true, STATE_PYTHON_DOUBLE_STRING);
   }
-  \'\'[rR]\"		{
+  \'\'[rR]\"		{	/* 4r */
     begin_string (true, STATE_PYTHON_DOUBLE_STRING_RAW);
   }
-  \"\"\'		{
+  \"\"\'		{	/* 5 */
     begin_string (true, STATE_PYTHON_SINGLE_STRING);
   }
-  \"\"[rR]\'		{
+  \"\"[rR]\'		{	/* 5r */
     begin_string (true, STATE_PYTHON_SINGLE_STRING_RAW);
   }
-  \"\"\"		{
+  \"\"\"		{	/* 6 */
     begin_string (false, STATE_PYTHON_SEXTUPLE_STRING);
   }
-  [rR]\"\"\"		{
+  [rR]\"\"\"		{	/* 6r */
     begin_string (false, STATE_PYTHON_SEXTUPLE_STRING_RAW);
   }
+  \"\"\'\'\'		{	/* 7 */
+    begin_string (true, STATE_PYTHON_TRIPLE_STRING);
+  }
+  \"\"[rR]\'\'\'	{	/* 7r */
+    begin_string (true, STATE_PYTHON_TRIPLE_STRING_RAW);
+  }
+  \'\'\"\"\"		{	/* 8 */
+    begin_string (true, STATE_PYTHON_SEXTUPLE_STRING);
+  }
+  \'\'[rR]\"\"\"	{	/* 8r */
+    begin_string (true, STATE_PYTHON_SEXTUPLE_STRING_RAW);
+  }
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python source");
 }
 
-<STATE_PYTHON_SINGLE_STRING>{
+<STATE_PYTHON_SINGLE_STRING>{	/* 1 */
 
   \'			BEGIN STATE_PYTHON;
   \\\n			current_line_number++;
@@ -448,10 +477,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 
   [^\'\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python single string");
 }
 
-<STATE_PYTHON_SINGLE_STRING_RAW>{
+<STATE_PYTHON_SINGLE_STRING_RAW>{ /* 1r */
 
   \'			BEGIN STATE_PYTHON;
   \n|\\\n		{
@@ -463,10 +492,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \\.			|
   [^\'\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python single string raw");
 }
 
-<STATE_PYTHON_DOUBLE_STRING>{
+<STATE_PYTHON_DOUBLE_STRING>{	/* 2 */
 
   \"			BEGIN STATE_PYTHON;
   \\\n			current_line_number++;
@@ -489,10 +518,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
 
   [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python double string");
 }
 
-<STATE_PYTHON_DOUBLE_STRING_RAW>{
+<STATE_PYTHON_DOUBLE_STRING_RAW>{ /* 2r */
 
   \"			BEGIN STATE_PYTHON;
   \n|\\\n		{
@@ -504,10 +533,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \\.			|
   [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python double string raw");
 }
 
-<STATE_PYTHON_TRIPLE_STRING>{
+<STATE_PYTHON_TRIPLE_STRING>{	/* 3 */
 
   \'\'\'		BEGIN STATE_PYTHON;
   \\\n			current_line_number++;
@@ -531,10 +560,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \'			|
   [^\'\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python triple string");
 }
 
-<STATE_PYTHON_TRIPLE_STRING_RAW>{
+<STATE_PYTHON_TRIPLE_STRING_RAW>{ /* 3r */
 
   \'\'\'		BEGIN STATE_PYTHON;
   \n|\\\n		{
@@ -547,10 +576,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \'			|
   [^\'\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python triple string raw");
 }
 
-<STATE_PYTHON_SEXTUPLE_STRING>{
+<STATE_PYTHON_SEXTUPLE_STRING>{	/* 6 */
 
   \"\"\"		BEGIN STATE_PYTHON;
   \\\n			current_line_number++;
@@ -574,10 +603,10 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \"			|
   [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python sextuple string");
 }
 
-<STATE_PYTHON_SEXTUPLE_STRING_RAW>{
+<STATE_PYTHON_SEXTUPLE_STRING_RAW>{ /* 6r */
 
   \"\"\"		BEGIN STATE_PYTHON;
   \n|\\\n		{
@@ -590,7 +619,7 @@ identifier		[_A-Za-z][_A-Za-z0-9]*
   \"			|
   [^\"\\\n]+		grow_string (yytext, yyleng);
 
-  .			unexpected_character ();
+  .			unexpected_character ("Python sextuple string raw");
 }
 
 %%
@@ -642,17 +671,25 @@ prepare_for_rescan (void)
 static int
 prepare_for_return (int token, int start, int starter)
 {
+#if 0
+  printf ("** started %d string %d translatable %d token %d start %d\n",
+	  starter_sent, string_seen, translatable_flag, token, start);
+#endif
   if (!starter_sent)
     {
-      prepare_for_rescan ();
       starter_sent = true;
+      if (token)
+	/* If not at end of file, then `unput' is usable.  */
+	prepare_for_rescan ();
       return starter;
     }
 
   if (string_seen)
     {
-      prepare_for_rescan ();
       string_seen = false;
+      if (token)
+	/* If not at end of file, then `unput' is usable.  */
+	prepare_for_rescan ();
       if (translatable_flag)
 	{
 	  struct reference *reference = (struct reference *)
@@ -716,13 +753,28 @@ prepare_for_return (int token, int start, int starter)
 
 /* Comment and string processing.  */
 
-/*----------------------------------------------------.
-| Start a new comment, or continue accumulating one.  |
-`----------------------------------------------------*/
+/*-----------------------------------------------------------------------.
+| Start a new comment, or continue accumulating one, from given TEXT and |
+| SIZE.  If DELIMITER is not NUL, beginning occurrences are excluded, as |
+| well as the first space following them (a TAB is preserved).           |
+`-----------------------------------------------------------------------*/
 
 static void
-grow_comment (char *text, size_t length)
+grow_comment (char *text, size_t length, char delimiter)
 {
+  if (delimiter)
+    {
+      while (length > 0 && *text == delimiter)
+	{
+	  text++;
+	  length--;
+	}
+      if (length > 0 && *text == ' ')
+	{
+	  text++;
+	  length--;
+	}
+    }
   obstack_grow (&comment_stack, text, length);
   comment_seen = true;
 }
@@ -902,7 +954,10 @@ initialize_scan (FILE *file, const char *name)
   yy_flex_debug = debug_flex_option;
 #endif
   yyin = file;
-  current_file_name = name;
+  if (name[0] == '.' && name[1] == '/')
+    current_file_name = name + 2;
+  else
+    current_file_name = name;
   current_line_number = 1;
   starter_sent = false;
 
@@ -930,11 +985,12 @@ terminate_scan (void)
 `--------------------------------*/
 
 static void
-unexpected_character (void)
+unexpected_character (const char *container)
 {
   char message[80];
 
-  sprintf (message, "Unexpected character: %d (%c)", yytext[0], yytext[0]);
+  sprintf (message, "Unexpected in %s: #%d `%c'", container,
+	   yytext[0], yytext[0]);
   yyerror (message);
 }
 

@@ -8,7 +8,7 @@
 
 %token STRING
 %token AWK_STARTER
-%token C_STARTER C_IDENTIFIER C_NUMBER
+%token C_STARTER C_IDENTIFIER C_OTHER
 %token ELISP_STARTER ELISP_SYMBOL ELISP_OTHER_ATOM
 %token PO_STARTER PO_MSGID PO_MSGSTR
 %token PERL_STARTER
@@ -17,6 +17,7 @@
 
 %{
 #include "xpot.h"
+static bool is_translatable (void);
 %}
 
 %union
@@ -56,19 +57,44 @@ file			:
 awk_file		:
 			;
 
-/*-------------------------------------------.
-| Parsing C sources is still unimplemented.  |
-`-------------------------------------------*/
+/*--------------------------------------------------------.
+| Parsing C sources.  We only want _(STRING) constructs.  |
+`--------------------------------------------------------*/
 
 c_file			:
+			| c_token_list
 			;
 
-/*------------------------------------------------------------------------.
-| ELISP parsing is kept as simple as possible.  Opening delimiters for	  |
-| structured types (byte-code, text properties, etc.) are all folded into |
-| either `(' when the closing delimiter is `)' or '[' when the closing	  |
-| delimiter is ']'.  From atoms, we only need to distinguish symbols.	  |
-`------------------------------------------------------------------------*/
+c_token_list		: c_token
+			| c_token_list c_token
+			;
+
+c_token			: C_IDENTIFIER
+{
+  if (is_translatable ())
+    translatable_flag = true;
+}
+			  c_parenthetical
+			| '(' ')'
+			| '(' c_token_list ')'
+			| '[' ']'
+			| '[' c_token_list ']'
+			| '{' '}'
+			| '{' c_token_list '}'
+			| STRING
+			| C_OTHER
+			;
+
+c_parenthetical		: ')'
+			| c_token_list ')'
+			;
+
+/*---------------------------------------------------------------------------.
+| ELISP parsing.  From atoms, we only need to distinguish symbols.  Opening  |
+| delimiters for structured types (byte-code, text properties, etc.) are all |
+| folded into either `(' when the closing delimiter is `)' or '[' when the   |
+| closing delimiter is ']'.                                                  |
+`---------------------------------------------------------------------------*/
 
 elisp_file		: elisp_expr {}
 			| elisp_file elisp_expr
@@ -121,6 +147,10 @@ elisp_expr		: ELISP_SYMBOL
   else
     $$.class = OTHER_SYMBOL;
 }
+			| STRING
+{
+  $$.class = S_EXPRESSION;
+}
 			| ELISP_OTHER_ATOM
 {
   $$.class = S_EXPRESSION;
@@ -150,9 +180,9 @@ elisp_expr		: ELISP_SYMBOL
 perl_file		:
 			;
 
-/*-----------------------------------.
-| PO files parsing is quite simple.  |
-`-----------------------------------*/
+/*------------------.
+| PO file parsing.  |
+`------------------*/
 
 po_file			: po_entry
 			| po_file po_entry
@@ -165,10 +195,9 @@ po_entry		: PO_MSGID
 			  STRING PO_MSGSTR STRING
 			;
 
-/*--------------------------------------------------------------------------.
-| Python parsing is kept simplistic.  We only want doc strings, and various |
-| _(STRING) constructs.                                                     |
-`--------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------.
+| Python parsing.  We only want doc strings and _(STRING) constructs.  |
+`---------------------------------------------------------------------*/
 
 python_file		:
 {
@@ -188,7 +217,7 @@ python_define		: PYTHON_DEFINE ':'
   translatable_flag = doc_strings_option;
 }
 			  python_docstring
-			| PYTHON_DEFINE python_parenthetical ':'
+			| PYTHON_DEFINE '(' python_parenthetical ':'
 {
   translatable_flag = doc_strings_option;
 }
@@ -213,12 +242,7 @@ python_any_token	: STRING
 
 python_token		: PYTHON_IDENTIFIER
 {
-  struct symbol lookup;
-  struct symbol *entry;
-
-  lookup.string = yytext;
-  entry = hash_lookup (symbol_table, &lookup);
-  if (entry && entry->class == MARK_SYMBOL)
+  if (is_translatable ())
     translatable_flag = true;
 }
 			  python_parenthetical
@@ -232,8 +256,8 @@ python_token		: PYTHON_IDENTIFIER
 			| ':'
 			;
 
-python_parenthetical	: '(' ')'
-			| '(' python_any_token_list ')'
+python_parenthetical	: ')'
+			| python_any_token_list ')'
 			;
 
 /*-----------------------------------------------.
@@ -242,3 +266,33 @@ python_parenthetical	: '(' ')'
 
 shell_file		:
 			;
+%%
+/* Service functions.  */
+
+static bool
+is_translatable (void)
+{
+  char *cursor = yytext + yyleng;
+  char saved;
+  struct symbol lookup;
+  struct symbol *entry;
+
+  /* Skip backwards over what would normally have been right context.  */
+  if (cursor > yytext && cursor[-1] == '(')
+    {
+      cursor--;
+      while (cursor > yytext && (cursor[-1] == ' ' || cursor[-1] == '\t'
+				 || cursor[-1] == '\n'))
+	cursor--;
+    }
+
+  /* Patch a NUL just for the time of the lookup.  */
+  lookup.string = yytext;
+  saved = *cursor;
+  *cursor = '\0';
+  entry = hash_lookup (symbol_table, &lookup);
+  *cursor = saved;
+
+  /* Tell if a mark symbol.  */
+  return entry && entry->class == MARK_SYMBOL;
+}

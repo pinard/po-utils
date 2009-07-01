@@ -157,6 +157,7 @@ initialize_tables (void)
   register_hint (".c", LANGUAGE_C);
   register_hint (".c++", LANGUAGE_C);
   register_hint (".cc", LANGUAGE_C);
+  register_hint (".h", LANGUAGE_C);
   register_hint (".l", LANGUAGE_C);
   register_hint (".y", LANGUAGE_C);
   register_hint ("bison", LANGUAGE_C);
@@ -198,9 +199,12 @@ initialize_tables (void)
       !symbol_table)
     error (EXIT_FAILURE, 0, _("Memory exhausted."));
 
-  register_symbol ("defvar", DEFINE_SYMBOL);
-  register_symbol ("defun", DEFINE_SYMBOL);
+  register_symbol ("defconst", DEFINE_SYMBOL);
+  register_symbol ("defcustom", DEFINE_SYMBOL);
   register_symbol ("defmacro", DEFINE_SYMBOL);
+  register_symbol ("defun", DEFINE_SYMBOL);
+  register_symbol ("defvar", DEFINE_SYMBOL);
+
   register_symbol ("translate-string", MARK_SYMBOL);
   register_symbol ("_", MARK_SYMBOL);
 }
@@ -398,7 +402,7 @@ usage (int status)
 	     program_name);
   else
     {
-      printf ("(Not so :-) GNU %s %s\n", PACKAGE, VERSION);
+      printf ("Free %s %s\n", PACKAGE, VERSION);
       printf (_("\
 \n\
 Usage: %s [OPTION]... [FILE]...\n"), program_name);

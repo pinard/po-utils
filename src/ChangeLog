@@ -1,0 +1,375 @@
+2000-01-17  François Pinard  <pinard@iro.umontreal.ca>
+
+	* Makefile.am: Take care of installing po-mode.el.
+	* elisp-comp: New file, from elsewhere.
+	* po-mode.el: To avoid compilation diagnostics, move customization
+	before portability matters and add some variable declarations.
+
+	* po-mode.el (po-subedit-cycle-auxiliary): Adapt to multiple edits.
+
+	* scanner.l (STATE_PYTHON): Include opening parenthesis in
+	identifier, instead of using slower right context.
+	* parser.y (is_translatable): New, to skip it back before lookup.
+	Adjust syntax, and use is_translatable.
+
+	* scanner.l (grow_comment): Accept a delimiter argument,
+	then simplify many calls.
+
+	* scanner.l (STATE_PYTHON): Add heptuple and octuple strings.
+
+	* parser.y, scanner.l: Implement C and C++.
+
+2000-01-16  François Pinard  <pinard@iro.umontreal.ca>
+
+	* scanner.l (unexpected_character): Take a container argument.
+	Callers adjusted.
+
+	* scanner.l (initialize_scan): Skip ./ in file name.
+
+	* xpot.c (initialize_tables): Recognise defconst and defcustom
+	as introducing symbol definitions.
+	* scanner.l (STATE_ELISP_STRING): Just return to STATE_ELISP,
+	do not attempt returning ELISP_OTHER_ATOM.
+	* parser.y (elisp_expr): Accept STRING.
+
+	* scanner.l (prepare_for_return): Avoid calling prepare_for_rescan
+	if at end of file.  When a string immediately preceded end of
+	file, a spurious NUL was diagnosed.
+	<<EOF>>: Do not set starter_sent.  Otherwise, a STRING token, not
+	introduced by a starter token, was causing a parse error.
+	Reported by Bernhard Herzog.
+
+2000-01-11  François Pinard  <pinard@iro.umontreal.ca>
+
+	* parser.y, scanner.l, xpot.c, xpot.h: Implement Python.
+	Rename -d to -p for --domain and -r to -v for --release.
+	Implement -d for --doc-strings.  Miscellaneous cleanup.
+	Also try guessing language from shell name or -*- marks.
+
+2000-01-04  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-extract-part-unquoted): New function.
+	(po-extract-unquoted, po-skip-over-python-string): Use it.
+
+	* po-mode.el (po-find-python-string): Ignore when used to index.
+
+2000-01-03  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-check-file-header): Add a new line after default
+	header only for non-empty PO files.
+
+	* po-mode.el (po-preset-string-functions): New function.  Add dummy
+	functions for unknown mode.  Simplify other functions consequently.
+	(po-tags-loop-scan): Use po-preset-string-functions.
+
+	* po-mode.el: Have marking functions to leave cursor after marked
+	string.  Do not return updated end anymore.
+
+2000-01-02  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-tags-search): Better use the Emacs tags interface,
+	and simplified.  Nested tags tables should be handled now.
+	(po-tags-loop-scan, po-tags-loop-operate): New functions.
+	(po-string-contents, po-string-buffer): New buffer local variables.
+	(po-next-file-list): Deleted.  All usages adjusted.
+
+1999-12-10  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-send-mail): Clarify some prompts.
+	Reported by Laurent Bourbeau.
+
+1999-12-06  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-skip-over-python-string): Missing parentheses.
+	Reported by Andreas Schwab.
+
+1999-09-17  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-find-python-string, po-mark-python-string,
+	po-skip-over-python-string): New functions.
+	(po-tags-search, po-mark-found-string): Use them in Python mode.
+
+1999-07-28  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-set-msgstr): Typo in function name.
+	Reported by Karl Eichwalder and Rodrigo Stulzer Lopes.
+
+1999-07-27  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-team-name-to-code): Add Galician.
+
+1999-07-25  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-team-name-to-code): New variable.
+	(po-guess-archive-name): Use it.
+
+	* po-mode.el (po-match-string).  New function.  Use it.
+
+1999-06-01  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-guess-archive-name, po-guess-team-address): Accept
+	more addresses, do not restrict to necessarily @li.org.
+
+1998-12-06  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-guess-archive-name): Allow Free as well as GNU
+	for domain name prefix.
+
+1998-10-23  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-validate): Manage so validation is done in a
+	buffer named *PO validation* instead of *compilation*.
+	Reported by Kalle Niemitalo.
+
+1998-09-07  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Merge make-local-variable within set whenever possible.
+
+1998-05-15  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Enforce #~ for obsolete entries, the tilde is not
+	optional anymore.
+
+1998-05-10  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-mode) [po-XEMACS]: Explicitely add menus.
+	Reported by Hrvoje Niksic.
+
+	* po-mode.el (po-mode-menu-layout): Give real access to auxiliary
+	files through the menu, instead of leaving menu entries inactive.
+
+1998-05-09  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-after-entry-regexp): Check if at end of line,
+	rather than for any character not being quote.  Else, M-u skips
+	over immediately previous untranslated entry, because backward
+	pattern extends beyond point.
+	Reported by Kalle Niemitalo.
+
+1998-05-03  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-create-overlay) [po-XEMACS]: No argument.
+	Reported by Ulrich Drepper.
+
+1998-03-30  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-tags-search, po-mark-translatable,
+	po-select-mark-and-mark): Call interactive after the doc string,
+	instead of before.
+	Reported by Tom Tromey.
+
+1997-10-18  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-tags-search, po-mark-found-string): C++ as C.
+	(po-find-c-string): Skip C++ comments as well.
+
+1997-10-02  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-find-file-coding-system): Read 4K instead of 2K.
+
+1997-09-21  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Add overlay information to po-edited-fields, so
+	simultaneous edits may yield simultaneous overlays.  Use only a
+	back-pointer in edit buffers, to replace all other local variables.
+	(po-clean-out-killed-edits): New function.
+	(po-check-all-pending-edits, po-check-for-pending-edit): Use it.
+	(po-subedit-exit, po-subedit-abort, po-edit-string): Adjusted.
+
+1997-09-16  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Get rid of the preallocated work buffer.  Delete
+	po-work-buffer and po-work-buffer-lock.  Declare po-edited-fields.
+	(po-mode): Initialise po-edited-fields.
+	(po-check-lock): Deleted.  Callers adjusted.
+	(po-quit): Do not kill the work buffer anymore.
+	(po-mode-destroy-cleanup): Deleted.  No more on kill-buffer-hook.
+	(po-check-all-pending-edits): New function.
+	(po-edit-out-full, po-quit, po-confirm-and-quit): Use it.
+	(po-check-for-pending-edit): New function.
+	(po-fade-out-entry, po-edit-string): Use it.
+	(po-with-temp-buffer): New macro, with-temp-buffer made portable.
+	(po-kill-new, po-extract-unquoted, po-eval-requoted): Use it.
+	(po-get-comment, po-set-comment, po-tags-search): Use it.
+
+	* po-mode.el: Declare po-read-only.  Use it everywhere.
+	(po-edit-out-full): Do not use recursive edit anymore.
+
+1997-09-15  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Recover gracefully if the edit buffer gets killed,
+	by rewriting edit code it so it avoids Emacs recursive edit.
+	(po-mode-destroy-cleanup): Check if buffer has a
+	name, so one does not attempt destroying an already killed buffer.
+	(po-check-lock): Check if a buffer has a name instead of using
+	bufferp, because killed buffers are still buffers.
+	(po-edit-string): Out of recursive edit, check if edit buffer is
+	still current, else presume it has been killed.
+	(po-edit-msgstr): When po-auto-edit-with-msgid, ensure msgstr is
+	still empty if edit is aborted, instead of holding a copy of msgid.
+	(po-subedit-exit, po-subedit-abort): New routines.
+	(po-subedit-cycle-auxiliary): Rename po-cycle-auxiliary-from-edit.
+	Reported by Karl Eichwalder.
+
+1997-09-14  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-kill-msgstr, po-yank-msgstr, po-msgid-to-msgstr):
+	Do not update counts, as po-set-msgstr does it already.
+	(po-edit-msgstr): But do update counts while fuzzying the entry.
+	Reported by Karl Eichwalder.
+
+	* po-mode.el (po-set-msgid, po-set-msgstr): po-current-entry is
+	overkill within a save-excursion, just use po-find-span-of-entry.
+
+1997-09-13  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-mode): Initialise po-overlay to nil.
+
+1997-09-09  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-get-msgid, po-get-msgstr): Replace po-get-field.
+	(po-set-msgid, po-set-msgstr): Replace po-set-field.
+	All callers adjusted.
+
+	* po-mode.el: Introduce and use po-EMACS20 and po-XEMACS.
+	(po-find-file-coding-system): Compile for EMACS20 only.
+
+	* po-mode.el (po-find-file-coding-system): If there is no match in
+	po-content-type-charset-alist, recognise any Mule coding system.
+
+1997-09-08  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-find-file-coding-system): Just return nil if
+	called in other context than visiting a PO file.  The function is
+	also called while saving such a file, like with write-region.
+	Reported by Ken'ichi Handa.
+
+1997-09-07  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-mode): Make po-overlay buffer local.
+	(po-highlight, po-dehighlight): Adjusted.
+	(po-highlight): Accept an optional buffer argument.
+	(po-tags-search): Tells po-highlight which buffer to use.
+
+	* po-mode.el (po-mark-found-string): Leave the cursor at the start
+	of msgid of the newly inserted entry, not msgstr.
+
+	* po-mode.el: Declare po-highlighting-sources.
+	(po-tags-search, po-mark-found-string): Use it.
+
+	Implement commands to handle auxiliary PO files.
+	* po-mode.el: Declare po-auxiliary-list, po-auxiliary-cursor and
+	po-buffer-of-edited-entry as global variables.
+	(po-show-auxiliary-list, po-consider-as-auxiliary,
+	po-ignore-as-auxiliary, po-seek-equivalent-translation,
+	po-cycle-auxiliary, po-cycle-auxiliary-from-edit,
+	po-select-auxiliary): New functions.
+	(po-edit-string): Interlock so only one entry is edited at a time.
+	Reported by Bruno Haible, Karl Eichwalder, Marcus Daniels and
+	Marin Purgar.
+
+1997-09-06  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-edit-string): Call po-subedit-mode-hook only once
+	the string has been put in the work buffer, not before.
+
+1997-09-05  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-normalise): Alias for po-normalize.
+
+1997-09-04  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Rename po-middle-of-entry to po-start-of-msgstr, add
+	variable po-start-of-msgid.  Use it whenever appropriate.
+
+	* po-mode.el (po-find-file-coding-system): New function.
+	Reported by Ken'ichi Handa.
+
+	* po-mode.el: Normalise string= to string-equal.
+
+	* po-mode.el (po-send-mail): Allow for mailing to the team.
+	(po-guess-team-address): New function.
+
+1997-09-02  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-set-comment): Unused variable buffer.
+	(po-edit-string): Unused variables start, middle, end and obsolete.
+	(po-tags-search): Unused variable find-string.
+
+	* po-mode.el (po-check-lock): Create the work buffer as required, to
+	avoid diagnostics about selecting a deleted buffer, after a user
+	explicitly killed the work buffer instead of exiting it normally.
+	Reported by Hrvoje Niksic.
+
+	* po-mode.el: New variable po-mode-menu-layout.
+	(po-mode): Establish a bar mode menu if possible.
+	Reported by Nils Naumann.
+
+	* po-mode.el: Decide set-translation-domain before using it.
+	This avoids a byte-compilation warning.
+
+	* po-mode.el (po-set-comment): Rearrange wrong conditional flow.
+	Translator comments were duplicated, when contents were unchanged.
+	Reported by Enrique Melero.
+
+1997-09-01  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-highlight, po-dehighlight): New functions.
+	New globals: po-highlight-p, po-highlight-face and po-overlay.
+	(po-edit-msgstr): Highlight the msgid string while editing.
+	(po-tags-search): Highlight found string.
+	(po-mark-found-string): Unhilight string before replacing it.
+	Reported by Jim Meyering, Michel Robitaille and Ulrich Drepper.
+
+	* po-mode.el (po-set-field): Tells if buffer was modified.
+	(po-edit-msgstr): Never make fuzzy an entry which is unmodified.
+
+	* po-mode.el: Add M command, and variables po-compose-mail-function,
+	po-translation-project-address and po-gzip-uuencode-command.
+	(po-guess-archive-name, po-send-mail): New functions.
+	Reported by Karl Eichwalder.
+
+1997-08-31  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-replace-revision-date): Enforce ISO 8601 zones.
+	Reported by Enrique Melero Gómez, Karl Eichwalder, Max de
+	Mendizabal and Santiago Vila Doncel.
+
+	* po-mode.el (po-edit-string): Expand tabs while editing
+	translations.
+	Reported by Göran Uddeborg.
+
+	* po-mode.el: Accept C-c C-k to abort recursive edits.
+	Reported by Göran Uddeborg and Hrvoje Niksic.
+
+1997-06-02  Ben Pfaff  <pfaffben@pilot.msu.edu>
+
+	* po-mode.el (po-find-c-string, po-extract-unquoted): Process ANSI
+	string concatenation and K&R escaped newlines.
+
+1997-03-02  Hrvoje Niksic  <hniksic@srce.hr>
+
+	* po-mode.el (po-help): To continue, also accept things like a
+	mouse press or an arrow key.
+
+1996-11-12  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Alter po-font-lock-keywords to properly highlight C
+	formats, when using an upper case letter as formatting functor.
+
+	* po-mode.el: If available, prefer force-mode-line-update builtin.
+
+	* po-mode.el: Use our own buffer-substring, defining it as
+	buffer-substring-no-properties if available.  Because of text
+	properties, buffer-substring does not always return a string.
+
+	* po-mode.el (po-consider-source-path): Ensure a trailing slash.
+
+1996-05-13  Andreas Schwab  <schwab@issan.informatik.uni-dortmund.de>
+
+	* po-mode.el (po-eval-requoted, po-extract-unquoted): Correct
+	missing or spurious backslashes in some regexps.
+
+1997-04-12  Hrvoje Niksic  <hniksic@srce.hr>
+
+	* po-mode.el: Customize.

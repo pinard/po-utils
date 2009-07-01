@@ -79,6 +79,7 @@ extern char *yytext;
 #else
 extern yytext[];
 #endif
+extern int yyleng;
 
 extern bool translatable_flag;
 

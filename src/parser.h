@@ -7,7 +7,7 @@ typedef union
 #define	AWK_STARTER	259
 #define	C_STARTER	260
 #define	C_IDENTIFIER	261
-#define	C_NUMBER	262
+#define	C_OTHER	262
 #define	ELISP_STARTER	263
 #define	ELISP_SYMBOL	264
 #define	ELISP_OTHER_ATOM	265
