@@ -1,5 +1,5 @@
 package_name = po-utils
-rootdir = $(HOME)/fp/po-utils/web
+rootdir = $(HOME)/entretien/po-utils/web
 margin_color = "\#a3bdd7"
 caption_color = "\#dedeff"
 
