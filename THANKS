@@ -4,30 +4,32 @@ various improvements or submitting actual code.  Here is a list of these
 people.  Help me keeping it complete and exempt of errors.  See various
 ChangeLogs for a detailed description of contributions.
 
-Andreas Schwab		schwab@suse.de
-Bernhard Herzog		bernhard@users.sourceforge.net
-			http://www.advogato.org/person/bernhard/
-Bill Perry		wmperry@aventail.com
-Bruno Haible		haible@ilog.fr
-Enrique Melero Gómez	justine@iprolink.ch
-François Pinard		pinard@iro.umontreal.ca
-			http://pinard.progiciels-bpi.ca/
-Greg McGary		gkm@cstone.net
-Göran Uddeborg		gvran@uddeborg.pp.se
-Hrvoje Niksic		hniksic@srce.hr
-Jim Meyering		meyering@na-net.ornl.gov
-Kalle Niemitalo		tosi@ees2.oulu.fi
-Karl Eichwalder		ke@suse.de
-Ken'ichi Handa		handa@etl.go.jp
-Laurent Bourbeau	bourbeau@progiciels-bpi.ca
-Marcus Daniels		marcus@sysc.pdx.edu
-Marin Purgar		pmc@asgard.hr
-Martin v. Löwis		martin@loewis.home.cs.tu-berlin.de
-			http://loewis.de/martin/
-Max de Mendizabal	max@acer.com.mx
-Michel Robitaille	robitail@IRO.UMontreal.CA
-Nils Naumann		naumann@unileoben.ac.at
-Rodrigo Stulzer Lopes	rodrigo@conectiva.com.br
-Santiago Vila Doncel	sanvila@unex.es
-Tom Tromey		tromey@cygnus.com
-Ulrich Drepper		drepper@gnu.org
+======================= ======================================================
+Andreas Schwab          | schwab at suse dot de
+Bernhard Herzog         | bernhard at users dot sourceforge dot net
+                        | http://www.advogato.org/person/bernhard/
+Bill Perry              | wmperry at aventail dot com
+Bruno Haible            | haible at ilog dot fr
+Enrique Melero Gómez    | justine at iprolink dot ch
+François Pinard         | pinard at iro dot umontreal dot ca
+                        | http://pinard.progiciels-bpi.ca/
+Greg McGary             | gkm at cstone dot net
+Göran Uddeborg          | gvran at uddeborg dot pp dot se
+Hrvoje Niksic           | hniksic at srce dot hr
+Jim Meyering            | meyering at na-net dot ornl dot gov
+Kalle Niemitalo         | tosi at ees2 dot oulu dot fi
+Karl Eichwalder         | ke at suse dot de
+Ken'ichi Handa          | handa at etl dot go dot jp
+Laurent Bourbeau        | bourbeau at progiciels-bpi dot ca
+Marcus Daniels          | marcus at sysc dot pdx dot edu
+Marin Purgar            | pmc at asgard dot hr
+Martin v. Löwis         | martin at loewis dot home dot cs dot tu-berlin dot de
+                        | http://loewis.de/martin/
+Max de Mendizabal       | max at acer dot com dot mx
+Michel Robitaille       | robitail at IRO dot UMontreal dot CA
+Nils Naumann            | naumann at unileoben dot ac dot at
+Rodrigo Stulzer Lopes   | rodrigo at conectiva dot com dot br
+Santiago Vila Doncel    | sanvila at unex dot es
+Tom Tromey              | tromey at cygnus dot com
+Ulrich Drepper          | drepper at gnu dot org
+======================= ======================================================

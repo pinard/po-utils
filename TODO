@@ -1,13 +1,18 @@
-* TODO file for Free PO utilities			allout -*- outline -*-
+===============================
+TODO file for Free PO utilities
+===============================
 
-Tell <po-utils-bugs@iro.umontreal.ca> if you feel like volunteering for
+Tell po-utils-bugs@iro.umontreal.ca if you feel like volunteering for
 any of these ideas, listed more or less in decreasing order of priority.
-Some TODO items are implicit from received email.  See file BACKLOG.
+Some TODO items are implicit from received email.  See file ``BACKLOG``.
 Significant contributions require written assignments and disclaimers.
 
-.@ ChangeLog
+ChangeLog
+=========
 
-.. po-utils et Netscape
-. : "/HTML/" manque
-. : substitution dans download.html
-. @ ~/fp-etc/web
+po-utils et Netscape
+====================
+
++ "/HTML/" manque
++ substitution dans download.html
++ ~/fp-etc/web
