@@ -7,7 +7,7 @@ README file for po-utils
 
 PO utilities is meant to become a collection of tools for handling PO
 files.  Until there is a real Texinfo manual for it, the documentation
-is kept in this :file:README.
+is kept in this :file:`README`.
 
 What are these PO and POT things?
 =================================
@@ -41,11 +41,11 @@ While a package is being internationalised, each string used in the
 program is considered, and those who might need translation are
 specially marked.  Some editing tools (like :code:`PO mode` in Emacs)
 have the purpose of easing that tedious marking task.  Then, other tools
-(like :code:xpot, :code:pygettext or :code:xgettext) have the purpose of
+(like :code:`xpot`, :code:`pygettext` or :code:`xgettext`) have the purpose of
 scanning a set of marked sources, and collecting all marked strings into
 a POT file.  This POT file is given to translators, who add translations
 (:code:`PO mode` is helpful here as well).  Each resulting PO file is
-compiled into an MO file (using :code:msgfmt) for faster access, and
+compiled into an MO file (using :code:`msgfmt`) for faster access, and
 installed together with the package.  When the installed package runs
 in a given locale, one installed MO file is selected according to the
 language of the user, and used to obtain the translated version of
@@ -58,10 +58,10 @@ File :file:`po-mode.el` implements a set of Emacs editing functions for
 PO files.  It can be used by maintainers to mark translatable strings in
 a set of sources, or by translators to add or revise translations in a
 PO file.  The main documentation is currently part of the manual which
-comes in the :code:gettext distribution.
+comes in the :code:`gettext` distribution.
 
-:code:xpot
-==========
+:code:`xpot`
+============
 
 Introduction
 ------------
@@ -72,19 +72,19 @@ and Python sources, as well as from pre-existing PO files.  It is meant
 to handle Awk, Perl or shell scripts, when everything will be ready for
 these.  And in fact, anything that could help internationalisation.
 
-To find out the language of a program, :code:xpot looks for hints
+To find out the language of a program, :code:`xpot` looks for hints
 in the extension of the file name, or else, in the contents of the
 first two lines of the file, looking for ``#!PATH/env PROGRAM``,
 ``#!PATH/PROGRAM``, ``-*-mode:MODE-*-`` or ``-*-MODE-*-`` in the first
 two lines.
 
-:code:xpot is itself written in C, Flex and Bison, and I would expect it
+:code:`xpot` is itself written in C, Flex and Bison, and I would expect it
 to be rather fast even for big projects.  This is an alpha version.
 
 Options
 -------
 
-One option to :code:xpot allows for automatic extraction of all doc
+One option to :code:`xpot` allows for automatic extraction of all doc
 strings, which never need explicit marking in either Emacs LISP or
 Python, for this reason.  Translation of doc string might be useful in
 highly interactive programs, giving access to interpreter facilities.
