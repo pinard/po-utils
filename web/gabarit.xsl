@@ -15,7 +15,7 @@
         </fp:section>
 
         <fp:section title="Source files">
-          <fp:entry text="Browse" href="http://github.com/pinard/po-utils"/>
+          <fp:entry text="Browse" href="https://github.com/pinard/po-utils"/>
           <fp:entry text="Download" href="/achives"/>
         </fp:section>
 
